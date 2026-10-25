@@ -393,5 +393,138 @@
         "SUBMITTED": "जमा हुआ"
       }
     }
+  },
+  "worker": {
+    "title": "मेरे काम",
+    "subtitle": "आपको दिए गए सर्वे और इंस्टॉलेशन",
+    "today": "आज",
+    "upcoming": "आने वाले",
+    "done": "पूरे हुए",
+    "overdue": "देर हो गई",
+    "empty": {
+      "today": "आज कोई काम नहीं",
+      "upcoming": "कुछ तय नहीं है",
+      "done": "अभी कोई काम पूरा नहीं हुआ"
+    },
+    "type": {
+      "SURVEY": "सर्वे",
+      "INSTALLATION": "इंस्टॉलेशन"
+    },
+    "open": "काम खोलें",
+    "call": "कॉल करें",
+    "directions": "रास्ता",
+    "scheduled": "{date}",
+    "jobTitle": "काम की जानकारी",
+    "customer": "ग्राहक",
+    "address": "पता",
+    "startSurvey": "सर्वे शुरू करें",
+    "continueSurvey": "सर्वे जारी रखें",
+    "surveyDone": "सर्वे {date} को जमा हुआ",
+    "openInstallation": "इंस्टॉलेशन चेकलिस्ट",
+    "noJobs": "यहाँ कोई काम नहीं",
+    "install": {
+      "title": "इंस्टॉलेशन",
+      "before": "पहले की फ़ोटो",
+      "after": "बाद की फ़ोटो",
+      "addPhoto": "फ़ोटो जोड़ें",
+      "materialReceived": "सामान मिल गया",
+      "markReceived": "सामान मिलना दर्ज करें",
+      "installed": "लग गया",
+      "markInstalled": "प्लांट लग गया दर्ज करें",
+      "notes": "इंस्टॉलेशन की टिप्पणी",
+      "waitingDispatch": "ऑफ़िस से सामान भेजे जाने का इंतज़ार है।",
+      "doneToast": "सेव हो गया",
+      "receivedAt": "{date} को मिला",
+      "installedAt": "{date} को लगा",
+      "needPhoto": "कम से कम एक इंस्टॉलेशन फ़ोटो अपलोड करें"
+    }
+  },
+  "survey": {
+    "title": "साइट सर्वे",
+    "progress": "चरण {current} / {total}",
+    "saved": "इस फ़ोन में सेव है",
+    "savedOffline": "बिना नेट के सेव — नेट आने पर भेज दिया जाएगा",
+    "online": "ऑनलाइन",
+    "offline": "ऑफ़लाइन",
+    "steps": {
+      "roof": "छत",
+      "shadow": "छाया",
+      "distances": "दूरी",
+      "electrical": "बिजली",
+      "photo": "लोकेशन फ़ोटो",
+      "review": "जाँचें"
+    },
+    "fields": {
+      "roofLengthM": "दक्षिण की ओर छत की लंबाई (मीटर)",
+      "roofWidthM": "दक्षिण की ओर छत की चौड़ाई (मीटर)",
+      "roofArea": "काम की जगह: {area} वर्ग मीटर",
+      "roofType": "छत का प्रकार",
+      "buildingHeightM": "बिल्डिंग की ऊँचाई (मीटर)",
+      "southShadowFree": "क्या दक्षिण की ओर छाया नहीं पड़ती?",
+      "shadowNotes": "छाया किससे पड़ती है? (मकान, पेड़, टंकी)",
+      "shadowPhoto": "दक्षिण की ओर की फ़ोटो",
+      "roofToMeterVerticalM": "छत → MCB/मीटर: ऊपर-नीचे (मीटर)",
+      "roofToMeterHorizontalM": "छत → MCB/मीटर: सीधी दूरी (मीटर)",
+      "panelToInverterVerticalM": "पैनल → इन्वर्टर: ऊपर-नीचे (मीटर)",
+      "panelToInverterHorizontalM": "पैनल → इन्वर्टर: सीधी दूरी (मीटर)",
+      "inverterToMeterM": "इन्वर्टर → MCB/मीटर (मीटर)",
+      "phaseObserved": "मीटर पर फेज़",
+      "notes": "अन्य टिप्पणी",
+      "geoPhoto": "लोकेशन वाली छत की फ़ोटो"
+    },
+    "roofTypes": {
+      "RCC": "RCC (पक्की छत)",
+      "TIN": "टीन शेड",
+      "OTHER": "अन्य"
+    },
+    "phase": {
+      "SINGLE": "सिंगल फेज़",
+      "THREE": "थ्री फेज़"
+    },
+    "hints": {
+      "distances": "AC, DC और अर्थिंग केबल की लंबाई तय करने के लिए।",
+      "photo": "छत पर दक्षिण की ओर मुँह करके खड़े हों। फ़ोटो पर GPS लोकेशन और समय छप जाएगा।"
+    },
+    "gps": {
+      "locating": "आपकी लोकेशन ली जा रही है…",
+      "accuracy": "लोकेशन ±{m} मीटर तक सही",
+      "denied": "लोकेशन की अनुमति नहीं मिली। फ़ोटो के लिए ब्राउज़र सेटिंग में लोकेशन चालू करें।",
+      "unavailable": "लोकेशन नहीं मिली। खुली जगह पर जाकर फिर कोशिश करें।",
+      "retry": "फिर कोशिश करें"
+    },
+    "takePhoto": "फ़ोटो खींचें",
+    "addAnother": "और फ़ोटो जोड़ें",
+    "photos": "{n, plural, =0 {कोई फ़ोटो नहीं} other {# फ़ोटो}}",
+    "uploadState": {
+      "queued": "अपलोड होना बाकी",
+      "uploading": "अपलोड हो रहा है {pct}%",
+      "done": "अपलोड हो गया",
+      "failed": "अपलोड नहीं हुआ — फिर कोशिश होगी"
+    },
+    "missingTitle": "जमा करने से पहले यह भरना बाकी है:",
+    "allSet": "सब भर गया है। जमा कर सकते हैं।",
+    "submit": "सर्वे जमा करें",
+    "submitting": "जमा हो रहा है…",
+    "submitted": "सर्वे जमा हो गया। धन्यवाद!",
+    "pendingUploads": "फ़ोटो अपलोड होने का इंतज़ार करें",
+    "missing": {
+      "roofLengthM": "छत की लंबाई",
+      "roofWidthM": "छत की चौड़ाई",
+      "roofType": "छत का प्रकार",
+      "buildingHeightM": "बिल्डिंग की ऊँचाई",
+      "southShadowFree": "छाया की जाँच",
+      "shadowNotes": "छाया की टिप्पणी",
+      "roofToMeterVerticalM": "छत → मीटर ऊपर-नीचे",
+      "roofToMeterHorizontalM": "छत → मीटर सीधी दूरी",
+      "panelToInverterVerticalM": "पैनल → इन्वर्टर ऊपर-नीचे",
+      "panelToInverterHorizontalM": "पैनल → इन्वर्टर सीधी दूरी",
+      "inverterToMeterM": "इन्वर्टर → मीटर",
+      "phaseObserved": "फेज़",
+      "notes": "टिप्पणी",
+      "geoPhoto": "लोकेशन वाली छत की फ़ोटो",
+      "shadowPhoto": "दक्षिण की ओर की फ़ोटो"
+    },
+    "remove": "फ़ोटो हटाएं",
+    "map": "सर्वे की जगह"
   }
 }

@@ -393,5 +393,138 @@
         "SUBMITTED": "Submitted"
       }
     }
+  },
+  "worker": {
+    "title": "My jobs",
+    "subtitle": "Surveys and installations assigned to you",
+    "today": "Today",
+    "upcoming": "Upcoming",
+    "done": "Done",
+    "overdue": "Overdue",
+    "empty": {
+      "today": "No jobs today",
+      "upcoming": "Nothing scheduled",
+      "done": "No completed jobs yet"
+    },
+    "type": {
+      "SURVEY": "Survey",
+      "INSTALLATION": "Installation"
+    },
+    "open": "Open job",
+    "call": "Call",
+    "directions": "Directions",
+    "scheduled": "{date}",
+    "jobTitle": "Job details",
+    "customer": "Customer",
+    "address": "Address",
+    "startSurvey": "Start survey",
+    "continueSurvey": "Continue survey",
+    "surveyDone": "Survey submitted {date}",
+    "openInstallation": "Installation checklist",
+    "noJobs": "No job here",
+    "install": {
+      "title": "Installation",
+      "before": "Before photos",
+      "after": "After photos",
+      "addPhoto": "Add photo",
+      "materialReceived": "Material received",
+      "markReceived": "Mark material received",
+      "installed": "Installed",
+      "markInstalled": "Mark installed",
+      "notes": "Installation notes",
+      "waitingDispatch": "Waiting for the office to dispatch material.",
+      "doneToast": "Saved",
+      "receivedAt": "Received {date}",
+      "installedAt": "Installed {date}",
+      "needPhoto": "Upload at least one installation photo"
+    }
+  },
+  "survey": {
+    "title": "Site survey",
+    "progress": "Step {current} of {total}",
+    "saved": "Saved on this phone",
+    "savedOffline": "Saved offline — will sync when online",
+    "online": "Online",
+    "offline": "Offline",
+    "steps": {
+      "roof": "Roof",
+      "shadow": "Shadow",
+      "distances": "Distances",
+      "electrical": "Electrical",
+      "photo": "Geo photo",
+      "review": "Review"
+    },
+    "fields": {
+      "roofLengthM": "South-facing roof length (m)",
+      "roofWidthM": "South-facing roof width (m)",
+      "roofArea": "Usable area: {area} m²",
+      "roofType": "Roof type",
+      "buildingHeightM": "Building height (m)",
+      "southShadowFree": "Is the south side shadow-free?",
+      "shadowNotes": "What casts a shadow? (buildings, trees, tanks)",
+      "shadowPhoto": "Photo of the south side",
+      "roofToMeterVerticalM": "Roof → MCB/meter: vertical (m)",
+      "roofToMeterHorizontalM": "Roof → MCB/meter: horizontal (m)",
+      "panelToInverterVerticalM": "Panels → inverter: vertical (m)",
+      "panelToInverterHorizontalM": "Panels → inverter: horizontal (m)",
+      "inverterToMeterM": "Inverter → MCB/meter (m)",
+      "phaseObserved": "Phase at the meter",
+      "notes": "Other notes",
+      "geoPhoto": "Geo-tagged rooftop photo"
+    },
+    "roofTypes": {
+      "RCC": "RCC (concrete)",
+      "TIN": "Tin sheet",
+      "OTHER": "Other"
+    },
+    "phase": {
+      "SINGLE": "Single phase",
+      "THREE": "Three phase"
+    },
+    "hints": {
+      "distances": "Used to plan AC, DC and earthing cable runs.",
+      "photo": "Stand on the roof facing south. GPS location and time are stamped on the photo."
+    },
+    "gps": {
+      "locating": "Getting your location…",
+      "accuracy": "Location accurate to ±{m} m",
+      "denied": "Location permission denied. Allow location in your browser settings to take the geo photo.",
+      "unavailable": "Couldn't get location. Move to an open area and try again.",
+      "retry": "Try again"
+    },
+    "takePhoto": "Take photo",
+    "addAnother": "Add another",
+    "photos": "{n, plural, =0 {No photos} one {# photo} other {# photos}}",
+    "uploadState": {
+      "queued": "Waiting to upload",
+      "uploading": "Uploading {pct}%",
+      "done": "Uploaded",
+      "failed": "Upload failed — will retry"
+    },
+    "missingTitle": "Still needed before you can submit:",
+    "allSet": "Everything is filled in. Ready to submit.",
+    "submit": "Submit survey",
+    "submitting": "Submitting…",
+    "submitted": "Survey submitted. Thank you!",
+    "pendingUploads": "Wait for photos to finish uploading",
+    "missing": {
+      "roofLengthM": "Roof length",
+      "roofWidthM": "Roof width",
+      "roofType": "Roof type",
+      "buildingHeightM": "Building height",
+      "southShadowFree": "Shadow check",
+      "shadowNotes": "Shadow notes",
+      "roofToMeterVerticalM": "Roof → meter vertical",
+      "roofToMeterHorizontalM": "Roof → meter horizontal",
+      "panelToInverterVerticalM": "Panels → inverter vertical",
+      "panelToInverterHorizontalM": "Panels → inverter horizontal",
+      "inverterToMeterM": "Inverter → meter",
+      "phaseObserved": "Phase",
+      "notes": "Notes",
+      "geoPhoto": "Geo-tagged rooftop photo",
+      "shadowPhoto": "South-side photo"
+    },
+    "remove": "Remove photo",
+    "map": "Survey location"
   }
 }
