@@ -2,8 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { REFRESH_EVENT } from "@/lib/realtime/topics";
-import { supabaseBrowser } from "@/lib/supabase/browser";
+import { subscribeTopic } from "@/lib/realtime/client";
 
 /**
  * Subscribe to broadcast "refresh" pings and re-render the current server
@@ -20,24 +19,25 @@ export function useRealtimeRefresh(topics: string[], onPing?: () => void): { liv
   const key = topics.join("|");
 
   useEffect(() => {
-    const client = supabaseBrowser();
-    if (!client || !key) return;
-    const channels = key.split("|").map((topic) =>
-      client
-        .channel(topic)
-        .on("broadcast", { event: REFRESH_EVENT }, () => {
-          if (timer.current) clearTimeout(timer.current);
-          timer.current = setTimeout(() => {
-            setLastPing(Date.now());
-            onPingRef.current?.();
-            router.refresh();
-          }, 250);
-        })
-        .subscribe((status) => setLive(status === "SUBSCRIBED")),
+    if (!key) return;
+    const statuses = new Map<string, boolean>();
+    const ping = () => {
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        setLastPing(Date.now());
+        onPingRef.current?.();
+        router.refresh();
+      }, 250);
+    };
+    const unsubs = key.split("|").map((topic) =>
+      subscribeTopic(topic, ping, (isLive) => {
+        statuses.set(topic, isLive);
+        setLive([...statuses.values()].every(Boolean));
+      }),
     );
     return () => {
       if (timer.current) clearTimeout(timer.current);
-      for (const c of channels) void client.removeChannel(c);
+      for (const u of unsubs) u();
     };
   }, [key, router]);
 
