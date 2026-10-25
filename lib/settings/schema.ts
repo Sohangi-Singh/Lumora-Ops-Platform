@@ -48,6 +48,8 @@ export const SettingsSchema = z.object({
     dcCableSlackPct: z.number().min(0).max(100).default(15),
     /** Basic per-Wp formula; see computeBasicPerWp() */
     basicPerWpMethod: z.enum(["SPLIT_OF_INCLUSIVE", "BLENDED_RATE"]).default("SPLIT_OF_INCLUSIVE"),
+    /** Append a customer-friendly savings page after the formal proposal */
+    includeSavingsPage: z.boolean().default(false),
   }),
   terms: z.object({
     paymentTerms: z.array(z.string()).default([

@@ -15,6 +15,10 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   serverExternalPackages: ["@react-pdf/renderer"],
+  // Fonts and the letterhead are read from disk when rendering quote PDFs.
+  outputFileTracingIncludes: {
+    "/**": ["./lib/pdf/fonts/**", "./public/brand/letterhead.jpg", "./public/brand/logo.png"],
+  },
   experimental: {
     authInterrupts: true,
     serverActions: { bodySizeLimit: "2mb" },

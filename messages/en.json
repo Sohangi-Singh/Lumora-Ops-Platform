@@ -392,6 +392,65 @@
         "IN_PROGRESS": "In progress",
         "SUBMITTED": "Submitted"
       }
+    },
+    "quote": {
+      "sizing": "Sizing breakdown",
+      "monthsUsed": "Months used",
+      "avgMonthly": "Average monthly units",
+      "avgDaily": "Average daily units",
+      "requiredKw": "Required capacity",
+      "loadCap": "Load cap (sanctioned/connected)",
+      "roofCap": "Roof cap ({sqm} m²/kWp)",
+      "recommended": "Recommended size",
+      "binding": "Limited by {what}",
+      "bindingWhat": {
+        "CONSUMPTION": "consumption",
+        "SANCTIONED_LOAD": "sanctioned load",
+        "ROOF_AREA": "roof area"
+      },
+      "roundedDown": "Rounded down to stay within the cap",
+      "capBelowMin": "A cap is below the minimum system size — decide manually",
+      "notReady": "Quote can be generated once the bill data is confirmed and the survey is submitted.",
+      "generate": "Generate quote",
+      "generating": "Generating…",
+      "generated": "New quote version created",
+      "current": "Current quote",
+      "version": "v{n}",
+      "status": {
+        "DRAFT": "Draft",
+        "PENDING_APPROVAL": "Awaiting approval",
+        "APPROVED": "Approved",
+        "SENT": "Sent to customer",
+        "ACCEPTED": "Accepted",
+        "EXPIRED": "Expired",
+        "SUPERSEDED": "Superseded"
+      },
+      "total": "Total (incl. GST)",
+      "basicPerWp": "Basic per Wp",
+      "basicNote": "Sample quote printed 64.645; formula in use gives {value}. Blended-rate formula would give {alt}. Owner to confirm (Settings → Quote).",
+      "validTill": "Valid till",
+      "advance": "Advance (90%)",
+      "balance": "Balance (10%)",
+      "approve": "Approve & send",
+      "approving": "Approving…",
+      "approved": "Quote sent to the customer",
+      "overrides": "Adjust size",
+      "overrideKw": "System size (kW)",
+      "overridePhase": "Phase",
+      "overridePanels": "Panel count",
+      "overrideReason": "Reason for change",
+      "reasonRequired": "Give a reason for the override",
+      "auto": "Auto",
+      "preview": "Preview PDF",
+      "regenerate": "Save as new version",
+      "lineItems": "Bill of materials",
+      "economics": "Customer economics",
+      "versions": "Versions",
+      "pdf": "PDF",
+      "noPdf": "PDF not available yet",
+      "cables": "Indicative cable runs: DC {dc} m · AC {ac} m · earthing {earth} m",
+      "accepted": "Accepted {date} from IP {ip}",
+      "revisionRequested": "Customer asked for a revised quote"
     }
   },
   "worker": {
@@ -526,5 +585,20 @@
     },
     "remove": "Remove photo",
     "map": "Survey location"
+  },
+  "savings": {
+    "title": "Your savings",
+    "cost": "System cost (incl. GST)",
+    "subsidy": "Government subsidy",
+    "subsidyDetail": "₹{central} central + ₹{state} state",
+    "netCost": "Your net cost",
+    "yearly": "Savings per year",
+    "yearlyDetail": "{units} units generated per year",
+    "payback": "Pays for itself in",
+    "years": "{n} years",
+    "lifetime": "Savings over {n} years",
+    "export": "Surplus export credit at ₹{rate}/unit",
+    "loan": "Loan facility is available through the PM Surya Ghar portal via your bank.",
+    "estimate": "Estimates based on your past consumption and average sunshine in your city."
   }
 }
