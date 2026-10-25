@@ -45,7 +45,7 @@ export async function PaymentsTab({ data }: { data: Project360 }) {
               <li key={p.id} className="flex flex-col gap-2 border-b border-border/60 px-5 py-3 last:border-0 md:flex-row md:items-center md:justify-between">
                 <div className="text-sm">
                   <div className="font-medium">
-                    {label(p.milestone)} · {formatINR(p.amount)} · {p.method.replace("_", " ").toLowerCase()}
+                    {label(p.milestone)} · {formatINR(p.amount)} · {tp(`methodShort.${p.method}`)}
                   </div>
                   <div className="text-xs text-muted-foreground tabular">
                     {formatDateTime(p.createdAt, locale)} · {p.razorpayPaymentId ?? p.razorpayOrderId ?? ""} {p.utr ? `UTR ${p.utr}` : ""}

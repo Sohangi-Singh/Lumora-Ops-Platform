@@ -900,7 +900,12 @@
     "noHistory": "अभी कोई भुगतान नहीं",
     "notConfigured": "अभी ऑनलाइन भुगतान उपलब्ध नहीं है। कृपया बैंक ट्रांसफ़र करें।",
     "rejectedReason": "पुष्टि नहीं हुई: {reason}",
-    "loading": "भुगतान खुल रहा है…"
+    "loading": "भुगतान खुल रहा है…",
+    "methodShort": {
+      "RAZORPAY": "Razorpay",
+      "BANK_TRANSFER": "बैंक ट्रांसफ़र",
+      "LOAN": "लोन"
+    }
   },
   "support": {
     "title": "सहायता",

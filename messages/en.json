@@ -900,7 +900,12 @@
     "noHistory": "No payments yet",
     "notConfigured": "Online payment isn't available right now. Please pay by bank transfer.",
     "rejectedReason": "Not verified: {reason}",
-    "loading": "Opening payment…"
+    "loading": "Opening payment…",
+    "methodShort": {
+      "RAZORPAY": "Razorpay",
+      "BANK_TRANSFER": "bank transfer",
+      "LOAN": "loan"
+    }
   },
   "support": {
     "title": "Support",
