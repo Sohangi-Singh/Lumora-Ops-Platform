@@ -1,16 +1,15 @@
 import "server-only";
 import type { Prisma } from "@prisma/client";
 import { db } from "@/lib/db";
-import { env } from "@/lib/env";
 import { BUCKETS, downloadObject } from "@/lib/storage";
 import { notifyAdmins, recordEvent, withWorkflow } from "@/lib/workflow/service";
 import { mergeExtractions, needsReview, runBillChecks, scoreConfidence } from "./checks";
-import { extractWithClaude, visionSupported } from "./claude";
+import { extractWithVision, visionAvailable, visionProvider } from "./vision";
 import { parseCspdclText } from "./cspdclParser";
 import type { ExtractedBill } from "./schema";
 
 /**
- * Bill extraction = deterministic text parse + Claude vision + cross-checks.
+ * Bill extraction = deterministic text parse + AI vision (Claude or Gemini) + cross-checks.
  * Runs after the upload response (never blocks the customer), and every
  * failure degrades to "manual entry" rather than an error screen.
  */
@@ -52,8 +51,8 @@ export async function queueBillExtraction(projectId: string): Promise<void> {
           if (parsed.fieldsFound >= 3) parser = parsed;
         }
       }
-      if (env.anthropic.enabled && visionSupported(bill.mimeType)) {
-        vision = await extractWithClaude({ bytes, mimeType: bill.mimeType, kind: "BILL" });
+      if (visionAvailable(bill.mimeType)) {
+        vision = await extractWithVision({ bytes, mimeType: bill.mimeType, kind: "BILL" });
         if (vision.documentKind === "NOT_A_BILL") errors.push("Uploaded electricity bill does not look like a bill");
       }
     } catch (err) {
@@ -62,10 +61,10 @@ export async function queueBillExtraction(projectId: string): Promise<void> {
   }
 
   for (const h of history) {
-    if (!env.anthropic.enabled || !visionSupported(h.mimeType)) continue;
+    if (!visionAvailable(h.mimeType)) continue;
     try {
       const bytes = await downloadObject(BUCKETS.documents, h.storagePath);
-      historyResults.push(await extractWithClaude({ bytes, mimeType: h.mimeType, kind: "HISTORY" }));
+      historyResults.push(await extractWithVision({ bytes, mimeType: h.mimeType, kind: "HISTORY" }));
     } catch (err) {
       errors.push(`History: ${err instanceof Error ? err.message : String(err)}`);
     }
@@ -75,11 +74,11 @@ export async function queueBillExtraction(projectId: string): Promise<void> {
   const docIds = docs.map((d) => d.id);
 
   if (!anything) {
-    const reason = errors[0] ?? (env.anthropic.enabled ? "Nothing readable found" : "Automatic reading not configured");
+    const reason = errors[0] ?? (visionProvider() ? "Nothing readable found" : "Automatic reading not configured");
     await withWorkflow(async (tx, fx) => {
       await tx.document.updateMany({
         where: { id: { in: docIds } },
-        data: { extractionStatus: env.anthropic.enabled ? "FAILED" : "SKIPPED", extractionError: reason },
+        data: { extractionStatus: visionProvider() ? "FAILED" : "SKIPPED", extractionError: reason },
       });
       await tx.billData.upsert({
         where: { projectId },

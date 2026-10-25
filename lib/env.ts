@@ -40,6 +40,17 @@ export const env = {
       return Boolean(read("ANTHROPIC_API_KEY") && read("ANTHROPIC_MODEL"));
     },
   },
+  gemini: {
+    get apiKey() {
+      return read("GEMINI_API_KEY");
+    },
+    get model() {
+      return read("GEMINI_MODEL") ?? "gemini-3.5-flash-lite";
+    },
+    get enabled() {
+      return Boolean(read("GEMINI_API_KEY"));
+    },
+  },
   razorpay: {
     get keyId() {
       return read("RAZORPAY_KEY_ID");

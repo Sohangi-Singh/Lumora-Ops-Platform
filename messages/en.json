@@ -332,7 +332,7 @@
       "title": "Bill data",
       "subtitle": "Check the values read from the bill against the document, correct anything wrong, then confirm. Only confirmed data is used for sizing.",
       "source": {
-        "AI": "Read by Claude vision",
+        "AI": "Read by AI vision",
         "PARSER": "Read from PDF text",
         "MANUAL": "Entered manually"
       },
