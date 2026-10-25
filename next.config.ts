@@ -14,7 +14,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  serverExternalPackages: ["@react-pdf/renderer"],
+  serverExternalPackages: ["@react-pdf/renderer", "unpdf"],
+  // Pin the workspace root (a stray lockfile in a parent folder confuses inference).
+  outputFileTracingRoot: process.cwd(),
   // Fonts and the letterhead are read from disk when rendering quote PDFs.
   outputFileTracingIncludes: {
     "/**": ["./lib/pdf/fonts/**", "./public/brand/letterhead.jpg", "./public/brand/logo.png"],
