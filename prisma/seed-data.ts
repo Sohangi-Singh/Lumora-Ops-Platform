@@ -1,0 +1,122 @@
+/**
+ * Business seed data transcribed from Lumora's sample quotation (Oct 2026).
+ * Pure data — shared by the seed script and unit tests. Text supports
+ * **bold** markers and {kW} {phase} {panelWattage} placeholders.
+ */
+import type { CatalogItemInput } from "@/lib/solar/bom";
+import type { PricingSlabInput } from "@/lib/solar/pricing";
+
+export const CATALOG_SEED: CatalogItemInput[] = [
+  {
+    sortOrder: 1,
+    category: "PANEL",
+    description: "Premium Tier-1 Solar Panel",
+    specification: "PV Panel – Half Cut, Bifacial (N-TOPCON) Technology, {panelWattage} Wp series, DCR Panels",
+    make: "Adani or Equivalent",
+    warranty: "Product Warranty – 12 Years, Performance Warranty up to 30 Years Or Manufacturer’s warranty",
+    unit: "Nos.",
+    qtyRule: "PANEL_COUNT",
+    fixedQty: null,
+    qtyText: null,
+  },
+  {
+    sortOrder: 2,
+    category: "INVERTER",
+    description: "High Efficiency Inverter",
+    specification: "**{kW} kW, {phase} Phase** with “Remote Monitoring Device”",
+    make: "PV Blink Equivalent",
+    warranty: "10 Years",
+    unit: "Nos.",
+    qtyRule: "ONE",
+    fixedQty: null,
+    qtyText: null,
+  },
+  {
+    sortOrder: 3,
+    category: "STRUCTURE",
+    description: "Module Mounting Structure “MMS”: Fixed Tilt",
+    specification: "**HDG/ Pre GI** to withstand wind speed 150 Km/Hour",
+    make: "Steel; IS 2062 Galvanization: IS 4759 IS 15965 ASTM A 792",
+    warranty: "",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "As per Design",
+  },
+  {
+    sortOrder: 4,
+    category: "PROTECTION",
+    description: "**Protection/ Safety Devices** ACDB/DCDB – MCBs, Fuses, SPDs",
+    specification: "MCBs – Schneider/ HPL/ TE/ Havells or Equivalent",
+    make: "Fuses & SPD – Waaree CAB, Havells/ Elmex or Equivalent",
+    warranty: "",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "As per the Requirement",
+  },
+  {
+    sortOrder: 5,
+    category: "EARTHING",
+    description: "Earthing & Light Arrester “LA”",
+    specification: "Chemical Earthing: Copper Bonded Rod 17.2x2100 mm",
+    make: "IS 3043 – 1987",
+    warranty: "",
+    unit: "Nos.",
+    qtyRule: "EARTHING",
+    fixedQty: null,
+    qtyText: null,
+  },
+  {
+    sortOrder: 6,
+    category: "CABLES",
+    description: "Electrical Cables/ Wires",
+    specification:
+      "AC Mains – **6 Sq mm, 4 Core** Copper Flexible, DC Wire – **4 Sq mm, Single Core** Copper Cable Earthing Cable – **6 Sq mm, Single Core**, Copper Cable",
+    make: "RR/Polycab/ Havells/ KEI or Equivalent",
+    warranty: "IEC Standards",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "As per Site Condition",
+  },
+  {
+    sortOrder: 7,
+    category: "ACCESSORIES",
+    description: "Accessories: Connectors, Conduit Pipes, Cable Ties, Flexible Pipes, Cable Trays, Lugs etc.",
+    specification: "Standard",
+    make: "Standard",
+    warranty: "",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "As per Site Condition",
+  },
+  {
+    sortOrder: 8,
+    category: "INSTALLATION",
+    description: "Design, Installation & Commissioning:",
+    specification: "Civil Foundation – Concrete foundation for RCC roof",
+    make: "IS 875 Part III for wind loading ensuring withstand severe weather",
+    warranty: "BIS and MNRE Standards IS 875 III (Wind) IS 6403/456/ 4091",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "As per Design",
+  },
+  {
+    sortOrder: 9,
+    category: "AMC",
+    description: "AMC:",
+    specification: "",
+    make: "",
+    warranty: "**5 Years**",
+    unit: "",
+    qtyRule: "TEXT",
+    fixedQty: null,
+    qtyText: "",
+  },
+];
+
+/** ₹70,200/kW incl. GST (5 kW = ₹3,51,000), any phase. */
+export const PRICING_SLAB_SEED: PricingSlabInput[] = [{ minKw: 1, maxKw: 100, ratePerKwInclGst: 70200, phase: null }];

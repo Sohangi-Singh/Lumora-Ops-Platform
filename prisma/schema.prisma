@@ -1,0 +1,517 @@
+// Lumora Solar Ops — data model.
+// Money is stored as integer rupees (Razorpay converts to paise at the edge).
+// IDs for users match Supabase Auth's auth.users.id so the two stay in sync.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Role {
+  ADMIN
+  WORKER
+  CUSTOMER
+}
+
+enum Stage {
+  REGISTERED
+  DOCUMENTS
+  SURVEY
+  QUOTE
+  ADVANCE_PAYMENT
+  SUBSIDY_APPLICATION
+  INSTALLATION
+  NET_METERING
+  COMMISSIONED
+  SUBSIDY_CREDITED
+}
+
+enum Phase {
+  SINGLE
+  THREE
+}
+
+enum DocumentType {
+  ELECTRICITY_BILL
+  CONSUMPTION_HISTORY
+  AADHAAR
+  PAN
+  CANCELLED_CHEQUE
+  OTHER
+}
+
+enum DocumentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ExtractionStatus {
+  NOT_APPLICABLE
+  QUEUED
+  RUNNING
+  DONE
+  NEEDS_REVIEW
+  FAILED
+  SKIPPED
+}
+
+enum BillSource {
+  AI
+  PARSER
+  MANUAL
+}
+
+enum SurveyStatus {
+  SCHEDULED
+  IN_PROGRESS
+  SUBMITTED
+}
+
+enum RoofType {
+  RCC
+  TIN
+  OTHER
+}
+
+enum PhotoKind {
+  SURVEY_ROOF
+  SURVEY_SHADOW
+  INSTALL_BEFORE
+  INSTALL_AFTER
+  TICKET
+}
+
+enum QuoteStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SENT
+  ACCEPTED
+  EXPIRED
+  SUPERSEDED
+}
+
+enum PaymentMilestone {
+  ADVANCE
+  BALANCE
+}
+
+enum PaymentMethod {
+  RAZORPAY
+  BANK_TRANSFER
+  LOAN
+}
+
+enum PaymentStatus {
+  CREATED
+  PAID
+  FAILED
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+model User {
+  id        String   @id @db.Uuid
+  role      Role
+  name      String
+  phone     String?  @unique
+  email     String   @unique
+  language  String   @default("en")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer         Customer?
+  assignedProjects Project[]      @relation("AssignedWorker")
+  surveys          Survey[]
+  notifications    Notification[]
+  events           ProjectEvent[]
+
+  @@index([role, isActive])
+}
+
+model Customer {
+  id             String    @id @default(cuid())
+  userId         String    @unique @db.Uuid
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  salutation     String    @default("Mr.")
+  addressLine1   String
+  addressLine2   String?
+  city           String
+  state          String    @default("Chhattisgarh")
+  pincode        String
+  consentAt      DateTime
+  consentVersion String    @default("dpdp-2026-01")
+  createdAt      DateTime  @default(now())
+  projects       Project[]
+}
+
+model Project {
+  id                   String    @id @default(cuid())
+  customerId           String
+  customer             Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  assignedWorkerId     String?   @db.Uuid
+  assignedWorker       User?     @relation("AssignedWorker", fields: [assignedWorkerId], references: [id], onDelete: SetNull)
+  stage                Stage     @default(REGISTERED)
+  stageEnteredAt       DateTime  @default(now())
+  /// { [stage]: ISO timestamp when entered }
+  stageTimestamps      Json      @default("{}")
+  cityCode             String    @default("RPR")
+  systemKw             Float?
+  phase                Phase?
+  targetCompletionDate DateTime?
+  /// Admin override of recommended size: { systemKw, phase, panelCount, reason, by, at }
+  sizingOverride       Json?
+
+  subsidyApplicationNo String?
+  subsidyAppliedAt     DateTime?
+  materialDispatchedAt DateTime?
+  materialReceivedAt   DateTime?
+  installedAt          DateTime?
+  installationNotes    String?
+  netMeteringFiledAt   DateTime?
+  netMeteringRefNo     String?
+  netMeterInstalledAt  DateTime?
+  commissionedAt       DateTime?
+  subsidyCreditedAt    DateTime?
+  amcStartDate         DateTime?
+  amcEndDate           DateTime?
+  completedAt          DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  documents     Document[]
+  billData      BillData?
+  survey        Survey?
+  photos        Photo[]
+  quotes        Quote[]
+  payments      Payment[]
+  events        ProjectEvent[]
+  notifications Notification[]
+  tickets       ServiceTicket[]
+
+  @@index([stage])
+  @@index([assignedWorkerId, stage])
+  @@index([customerId])
+  @@index([createdAt])
+}
+
+model Document {
+  id               String           @id @default(cuid())
+  projectId        String
+  project          Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type             DocumentType
+  storagePath      String           @unique
+  fileName         String
+  mimeType         String
+  size             Int
+  /// false until the client confirms the direct-to-storage upload and we verify magic bytes
+  uploaded         Boolean          @default(false)
+  status           DocumentStatus   @default(PENDING)
+  rejectionReason  String?
+  uploadedById     String           @db.Uuid
+  reviewedById     String?          @db.Uuid
+  reviewedAt       DateTime?
+  version          Int              @default(1)
+  isLatest         Boolean          @default(true)
+  extractionStatus ExtractionStatus @default(NOT_APPLICABLE)
+  extractionError  String?
+  createdAt        DateTime         @default(now())
+
+  @@index([projectId, type, isLatest])
+  @@index([status, uploaded])
+}
+
+model BillData {
+  id                 String     @id @default(cuid())
+  projectId          String     @unique
+  project            Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  serviceNo          String?
+  consumerName       String?
+  billAddress        String?
+  tariffCategory     String?
+  purpose            String?
+  sanctionedLoadW    Int?
+  connectedLoadKw    Float?
+  phase              Phase?
+  currentReading     Float?
+  previousReading    Float?
+  billedUnits        Float?
+  netBillAmount      Float?
+  existingSolarExport Float?
+  /// [{ month: "YYYY-MM", units: number, source: "BILL" | "HISTORY" | "MANUAL" }]
+  monthlyConsumption Json       @default("[]")
+  source             BillSource @default(MANUAL)
+  confidence         Float?
+  /// Result of the deterministic cross-checks: [{ code, ok, message }]
+  checks             Json       @default("[]")
+  needsReview        Boolean    @default(false)
+  rawExtraction      Json?
+  sourceDocumentIds  String[]
+  confirmedByAdmin   Boolean    @default(false)
+  confirmedById      String?    @db.Uuid
+  confirmedAt        DateTime?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  @@index([serviceNo])
+}
+
+model Survey {
+  id                         String       @id @default(cuid())
+  projectId                  String       @unique
+  project                    Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  workerId                   String       @db.Uuid
+  worker                     User         @relation(fields: [workerId], references: [id])
+  status                     SurveyStatus @default(SCHEDULED)
+  scheduledAt                DateTime
+  startedAt                  DateTime?
+  roofLengthM                Float?
+  roofWidthM                 Float?
+  roofAreaSqm                Float?
+  southShadowFree            Boolean?
+  shadowNotes                String?
+  buildingHeightM            Float?
+  roofToMeterVerticalM       Float?
+  roofToMeterHorizontalM     Float?
+  panelToInverterVerticalM   Float?
+  panelToInverterHorizontalM Float?
+  inverterToMeterM           Float?
+  roofType                   RoofType?
+  phaseObserved              Phase?
+  notes                      String?
+  lat                        Float?
+  lng                        Float?
+  gpsAccuracy                Float?
+  gpsCapturedAt              DateTime?
+  submittedAt                DateTime?
+  createdAt                  DateTime     @default(now())
+  updatedAt                  DateTime     @updatedAt
+  photos                     Photo[]
+
+  @@index([workerId, status, scheduledAt])
+}
+
+model Photo {
+  id           String         @id @default(cuid())
+  projectId    String
+  project      Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  surveyId     String?
+  survey       Survey?        @relation(fields: [surveyId], references: [id], onDelete: SetNull)
+  ticketId     String?
+  ticket       ServiceTicket? @relation(fields: [ticketId], references: [id], onDelete: SetNull)
+  kind         PhotoKind
+  storagePath  String         @unique
+  mimeType     String
+  size         Int
+  uploaded     Boolean        @default(false)
+  lat          Float?
+  lng          Float?
+  accuracy     Float?
+  takenAt      DateTime?
+  caption      String?
+  uploadedById String         @db.Uuid
+  createdAt    DateTime       @default(now())
+
+  @@index([projectId, kind])
+}
+
+model CatalogItem {
+  id            String   @id @default(cuid())
+  sortOrder     Int
+  category      String
+  /// Text supports **bold** markers and {kW} {phase} {panelWattage} placeholders
+  description   String
+  specification String
+  make          String
+  warranty      String
+  unit          String
+  /// PANEL_COUNT | ONE | FIXED | TEXT
+  qtyRule       String
+  fixedQty      Int?
+  qtyText       String?
+  isActive      Boolean  @default(true)
+  updatedAt     DateTime @updatedAt
+}
+
+model PricingSlab {
+  id               String   @id @default(cuid())
+  minKw            Float
+  maxKw            Float
+  ratePerKwInclGst Int
+  /// null = applies to both phases
+  phase            Phase?
+  isActive         Boolean  @default(true)
+  updatedAt        DateTime @updatedAt
+
+  @@index([isActive, minKw])
+}
+
+model Settings {
+  id          Int      @id @default(1)
+  /// Validated by SettingsSchema (lib/settings/schema.ts)
+  data        Json
+  updatedAt   DateTime @updatedAt
+  updatedById String?  @db.Uuid
+}
+
+model Quote {
+  id                String      @id @default(cuid())
+  projectId         String
+  project           Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  refNo             String
+  version           Int
+  status            QuoteStatus @default(DRAFT)
+  quoteDate         DateTime    @default(now())
+  validTill         DateTime
+  systemKw          Float
+  phase             Phase
+  panelCount        Int
+  /// Everything the quote was computed from (bill, survey, settings, overrides)
+  inputsSnapshot    Json
+  /// Sizing, pricing and economics outputs
+  computed          Json
+  lineItems         Json
+  totalInclGst      Int
+  pdfPath           String?
+  overrideReason    String?
+  approvedById      String?     @db.Uuid
+  approvedAt        DateTime?
+  sentAt            DateTime?
+  acceptedAt        DateTime?
+  acceptedIp        String?
+  acceptedUserAgent String?
+  createdAt         DateTime    @default(now())
+  payments          Payment[]
+
+  @@unique([projectId, version])
+  @@index([status])
+  @@index([refNo])
+}
+
+model Payment {
+  id                String           @id @default(cuid())
+  projectId         String
+  project           Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  quoteId           String
+  quote             Quote            @relation(fields: [quoteId], references: [id])
+  milestone         PaymentMilestone
+  amount            Int
+  method            PaymentMethod
+  status            PaymentStatus    @default(CREATED)
+  razorpayOrderId   String?          @unique
+  razorpayPaymentId String?          @unique
+  utr               String?
+  receiptPath       String?
+  failureReason     String?
+  paidAt            DateTime?
+  verifiedById      String?          @db.Uuid
+  verifiedAt        DateTime?
+  createdById       String?          @db.Uuid
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  @@index([projectId, milestone, status])
+  @@index([status])
+}
+
+model ProjectEvent {
+  id        String   @id @default(cuid())
+  projectId String
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  type      String
+  actorId   String?  @db.Uuid
+  actor     User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  payload   Json     @default("{}")
+  messageEn String
+  messageHi String
+  /// Internal events (e.g. document views) are hidden from the customer timeline
+  internal  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([projectId, createdAt])
+  @@index([type])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  projectId String?
+  project   Project? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  titleEn   String
+  titleHi   String
+  bodyEn    String
+  bodyHi    String
+  href      String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read, createdAt])
+}
+
+model ServiceTicket {
+  id          String       @id @default(cuid())
+  projectId   String
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  category    String
+  description String
+  status      TicketStatus @default(OPEN)
+  createdById String       @db.Uuid
+  adminNote   String?
+  resolvedAt  DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  photos      Photo[]
+
+  @@index([projectId])
+  @@index([status, createdAt])
+}
+
+/// Atomic per-financial-year quote serials: "2026-2027" → 241
+model RefCounter {
+  fiscalYear String @id
+  lastSerial Int    @default(0)
+}
+
+/// Razorpay webhook idempotency: one row per processed event
+model WebhookEvent {
+  id         String   @id
+  type       String
+  receivedAt DateTime @default(now())
+}
+
+/// Audit trail for changes that are not tied to a project (settings, users)
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?  @db.Uuid
+  entity    String
+  entityId  String?
+  action    String
+  diff      Json     @default("{}")
+  createdAt DateTime @default(now())
+
+  @@index([entity, createdAt])
+}
+
+/// Fixed-window rate limiting that works across serverless instances
+model RateLimit {
+  key         String   @id
+  count       Int
+  windowStart DateTime
+}
