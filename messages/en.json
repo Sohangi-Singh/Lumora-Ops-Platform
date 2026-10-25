@@ -275,5 +275,123 @@
     "title": "Timeline",
     "subtitle": "Everything that has happened on your project",
     "empty": "Nothing here yet"
+  },
+  "admin": {
+    "projects": {
+      "title": "Projects",
+      "subtitle": "Every customer project, newest first",
+      "search": "Search name, phone, service no. or ref no.",
+      "allStages": "All stages",
+      "empty": "No projects match",
+      "customer": "Customer",
+      "stage": "Stage",
+      "worker": "Worker",
+      "size": "Size",
+      "updated": "Updated",
+      "blockers": "Blockers",
+      "unassigned": "Unassigned"
+    },
+    "p360": {
+      "back": "All projects",
+      "tabs": {
+        "overview": "Overview",
+        "documents": "Documents",
+        "bill": "Bill data",
+        "survey": "Survey",
+        "quote": "Quote",
+        "payments": "Payments",
+        "timeline": "Timeline",
+        "actions": "Actions"
+      },
+      "contact": "Contact",
+      "address": "Address",
+      "assignedWorker": "Assigned worker",
+      "noWorker": "Not assigned",
+      "blockers": "Blockers",
+      "noBlockers": "Nothing is blocking this project",
+      "stageSince": "In {stage} since {date}",
+      "consent": "DPDP consent given {date}",
+      "city": "City"
+    },
+    "docs": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "rejectTitle": "Reject {doc}",
+      "rejectReason": "Reason shown to the customer",
+      "rejectPlaceholder": "e.g. Blurry photo — please upload a clear copy",
+      "notUploaded": "Not uploaded yet",
+      "approved": "Document approved",
+      "rejected": "Document rejected — customer notified",
+      "history": "Earlier versions",
+      "open": "Open",
+      "download": "Download",
+      "noPreview": "Preview not available for this file type",
+      "reviewedBy": "Reviewed {date}"
+    },
+    "bill": {
+      "title": "Bill data",
+      "subtitle": "Check the values read from the bill against the document, correct anything wrong, then confirm. Only confirmed data is used for sizing.",
+      "source": {
+        "AI": "Read by Claude vision",
+        "PARSER": "Read from PDF text",
+        "MANUAL": "Entered manually"
+      },
+      "confidence": "{pct}% confidence",
+      "needsReview": "Needs review",
+      "confirmed": "Confirmed",
+      "notConfirmed": "Not confirmed",
+      "noData": "No bill data yet. Upload or wait for the bill to be read, or enter it manually.",
+      "extracting": "Reading the bill… this page will update automatically.",
+      "failed": "Automatic reading failed: {error}. Please enter the values manually.",
+      "rerun": "Re-run extraction",
+      "rerunQueued": "Extraction queued",
+      "fields": {
+        "serviceNo": "Service no.",
+        "consumerName": "Consumer name",
+        "billAddress": "Bill address",
+        "purpose": "Purpose",
+        "tariffCategory": "Tariff category",
+        "sanctionedLoadW": "Sanctioned load (W)",
+        "connectedLoadKw": "Connected load (kW)",
+        "phase": "Phase",
+        "currentReading": "Current reading",
+        "previousReading": "Previous reading",
+        "billedUnits": "Units this bill",
+        "netBillAmount": "Net bill amount (₹)",
+        "existingSolarExport": "Existing solar export (units)"
+      },
+      "phase": {
+        "SINGLE": "Single",
+        "THREE": "Three",
+        "UNKNOWN": "Unknown"
+      },
+      "months": "Monthly consumption",
+      "month": "Month",
+      "units": "Units",
+      "addMonth": "Add month",
+      "remove": "Remove",
+      "avg": "Average {avg} units/month over {n} months",
+      "checks": "Automatic checks",
+      "save": "Save changes",
+      "saveConfirm": "Save & confirm",
+      "saved": "Bill data saved",
+      "confirmedToast": "Bill data confirmed",
+      "documentPreview": "Bill document"
+    },
+    "assign": {
+      "title": "Site survey",
+      "worker": "Field worker",
+      "date": "Survey date & time",
+      "submit": "Assign & schedule",
+      "reschedule": "Reschedule",
+      "done": "Survey scheduled — worker and customer notified",
+      "noWorkers": "No active workers. Add one under Users.",
+      "current": "Scheduled with {worker} on {date}",
+      "status": {
+        "SCHEDULED": "Scheduled",
+        "IN_PROGRESS": "In progress",
+        "SUBMITTED": "Submitted"
+      }
+    }
   }
 }
