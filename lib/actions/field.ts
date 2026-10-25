@@ -67,6 +67,12 @@ export async function requestPhotoUploadAction(input: z.input<typeof PhotoReques
       if (survey.status === "SUBMITTED") throw new AppError("CONFLICT", "Survey already submitted");
       surveyId = survey.id;
     }
+    if (data.kind === "TICKET") {
+      const ticket = data.ticketId ? await db.serviceTicket.findUnique({ where: { id: data.ticketId }, select: { projectId: true } }) : null;
+      if (!ticket || ticket.projectId !== data.projectId) throw new AppError("VALIDATION", "Unknown service request");
+      const count = await db.photo.count({ where: { ticketId: data.ticketId } });
+      if (count >= 3) throw new AppError("VALIDATION", "Up to 3 photos per request");
+    }
     if (data.kind === "SURVEY_ROOF" && (data.lat == null || data.lng == null)) {
       throw new AppError("VALIDATION", "Rooftop photos must be geo-tagged");
     }

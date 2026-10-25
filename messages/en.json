@@ -654,6 +654,37 @@
       "jobs": "{n} open jobs",
       "you": "You",
       "roleLabel": "Role"
+    },
+    "stage": {
+      "title": "Next step",
+      "subsidyNo": "PM Surya Ghar application no.",
+      "fileSubsidy": "Mark subsidy application filed",
+      "installer": "Installer",
+      "dispatch": "Mark material dispatched",
+      "dispatched": "Dispatched {date} · waiting for the installer",
+      "installed": "Installed {date}",
+      "netMeterRef": "CSPDCL net-metering file / ref no.",
+      "fileNetMetering": "Mark net-metering file submitted",
+      "filedWaiting": "File submitted {date} · waiting for the 10% balance",
+      "netMeterInstalled": "Mark net meter installed (plant live)",
+      "subsidyCredited": "Confirm ₹1,08,000 subsidy credited",
+      "done": "Saved",
+      "waiting": "Nothing to do right now — waiting on the {who}.",
+      "complete": "Project complete. AMC until {date}.",
+      "who": {
+        "CUSTOMER": "customer",
+        "WORKER": "field team",
+        "ADMIN": "office"
+      }
+    },
+    "tickets": {
+      "title": "Service tickets",
+      "subtitle": "AMC requests from commissioned customers",
+      "all": "All",
+      "update": "Update",
+      "note": "Note to customer",
+      "updated": "Ticket updated",
+      "none": "No tickets"
     }
   },
   "worker": {
@@ -869,5 +900,37 @@
     "notConfigured": "Online payment isn't available right now. Please pay by bank transfer.",
     "rejectedReason": "Not verified: {reason}",
     "loading": "Opening payment…"
+  },
+  "support": {
+    "title": "Support",
+    "subtitle": "We're here to help",
+    "call": "Call us",
+    "email": "Email us",
+    "raise": "Raise a service request",
+    "raiseHint": "Covered under your 5-year AMC.",
+    "locked": "Service requests open once your plant is commissioned. For anything else, call or email us.",
+    "category": "What's the issue?",
+    "categories": {
+      "NO_GENERATION": "Low or no generation",
+      "INVERTER": "Inverter error / alarm",
+      "CLEANING": "Panel cleaning",
+      "DAMAGE": "Physical damage",
+      "NET_METER": "Net meter / billing",
+      "OTHER": "Something else"
+    },
+    "description": "Describe the problem",
+    "photos": "Photos (optional, up to 3)",
+    "submit": "Submit request",
+    "submitted": "Request submitted — we'll call you soon",
+    "mine": "My requests",
+    "none": "No service requests yet",
+    "status": {
+      "OPEN": "Open",
+      "IN_PROGRESS": "In progress",
+      "RESOLVED": "Resolved",
+      "CLOSED": "Closed"
+    },
+    "reply": "Lumora: {note}",
+    "amcUntil": "AMC valid until {date}"
   }
 }
