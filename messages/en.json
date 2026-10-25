@@ -147,5 +147,133 @@
     "empty": "You're all caught up",
     "markAllRead": "Mark all as read",
     "unread": "Unread"
+  },
+  "tracker": {
+    "title": "My solar project",
+    "greeting": "Namaste, {name}",
+    "projectFor": "{kw} kW rooftop plant · {city}",
+    "sizeTbd": "Rooftop solar plant · {city}",
+    "stepOf": "Step {current} of {total}",
+    "working": "We're working on it",
+    "actionNeeded": "Action needed from you",
+    "allDone": "Your solar plant is live and the subsidy is credited. Your 5-year AMC is active until {date}.",
+    "completeTitle": "All done! ☀️",
+    "eta": "Usually takes about {days} days",
+    "since": "In this step since {date}",
+    "recent": "Recent updates",
+    "viewTimeline": "View full timeline",
+    "live": "Live",
+    "noProject": "We couldn't find your project. Please contact Lumora Solar.",
+    "targetDate": "Target completion: {date}",
+    "workingOn": {
+      "REGISTERED": "Setting up your account.",
+      "DOCUMENTS": "Our team is verifying your documents and reading your electricity bill.",
+      "SURVEY": "We're scheduling your engineer's visit to measure your roof.",
+      "QUOTE": "We're preparing your quotation based on your bill and roof survey.",
+      "ADVANCE_PAYMENT": "We'll confirm your advance payment shortly.",
+      "SUBSIDY_APPLICATION": "We're filing your PM Surya Ghar subsidy application and ordering material.",
+      "INSTALLATION": "Material is on its way and our team will install your plant.",
+      "NET_METERING": "We've applied to CSPDCL for your net meter.",
+      "COMMISSIONED": "CSPDCL is installing your net meter.",
+      "SUBSIDY_CREDITED": "Waiting for the government to credit your subsidy."
+    }
+  },
+  "blockers": {
+    "DOC_MISSING": "Upload your {doc}",
+    "DOC_REJECTED": "{doc} rejected: {reason}. Please re-upload.",
+    "DOC_REVIEW": "{doc} is under review",
+    "BILL_DATA_UNCONFIRMED": "Bill details need confirming",
+    "SURVEY_UNASSIGNED": "Survey not scheduled",
+    "SURVEY_SCHEDULED": "Survey scheduled",
+    "SURVEY_OVERDUE": "Survey overdue by {days, plural, one {# day} other {# days}}",
+    "GEO_PHOTO_MISSING": "Geo-tagged roof photo missing",
+    "QUOTE_NOT_GENERATED": "Quote not generated yet",
+    "QUOTE_AWAITING_APPROVAL": "Quote awaiting approval",
+    "QUOTE_AWAITING_ACCEPTANCE": "Review and accept your quotation",
+    "QUOTE_EXPIRING": "Your quotation expires in {days, plural, =0 {less than a day} one {# day} other {# days}}",
+    "QUOTE_EXPIRED": "Quotation expired — revision needed",
+    "ADVANCE_PENDING": "Pay the 90% advance to confirm your order",
+    "PAYMENT_TO_VERIFY": "Payment awaiting verification",
+    "SUBSIDY_APPLICATION_PENDING": "Subsidy application to be filed",
+    "MATERIAL_DISPATCH_PENDING": "Material to be dispatched",
+    "INSTALLATION_PENDING": "Installation pending",
+    "INSTALL_PHOTOS_MISSING": "Installation photos missing",
+    "NET_METERING_FILE_PENDING": "Net-metering file to be submitted",
+    "BALANCE_PENDING": "Pay the 10% balance",
+    "NET_METER_INSTALL_PENDING": "Net meter installation pending",
+    "SUBSIDY_CREDIT_PENDING": "Subsidy credit pending",
+    "SLA_AT_RISK": "40-day completion SLA at risk ({days} days left)",
+    "SLA_BREACHED": "40-day SLA breached by {days} days",
+    "owner": {
+      "CUSTOMER": "Customer",
+      "WORKER": "Field team",
+      "ADMIN": "Office"
+    }
+  },
+  "actions": {
+    "uploadDocuments": "Upload documents",
+    "reuploadDocument": "Re-upload document",
+    "viewQuote": "View quotation",
+    "payNow": "Pay now",
+    "contactUs": "Contact us"
+  },
+  "docs": {
+    "title": "My documents",
+    "subtitle": "Upload clear photos or PDFs. Our team checks each one, usually within a working day.",
+    "privacy": "Your documents are stored encrypted in a private vault. Only Lumora's office team can open them, every view is logged, and they are used only for your solar project and subsidy application.",
+    "welcome": "Account created! Start by uploading your documents.",
+    "required": "Required",
+    "optional": "Optional — helps us size your plant",
+    "status": {
+      "NONE": "Not uploaded",
+      "PENDING": "Under review",
+      "APPROVED": "Approved",
+      "REJECTED": "Rejected"
+    },
+    "rejectedReason": "Reason: {reason}",
+    "takePhoto": "Take photo",
+    "chooseFile": "Choose file",
+    "replace": "Upload new version",
+    "uploading": "Uploading… {pct}%",
+    "verifying": "Checking file…",
+    "uploaded": "{doc} uploaded — we'll review it soon",
+    "retrying": "Connection lost, retrying…",
+    "lastUploaded": "{file} · {date}",
+    "version": "v{n}",
+    "view": "View",
+    "allApproved": "All documents approved. Thank you!",
+    "readingBill": "Reading your bill automatically…",
+    "locked": "Documents are verified. Contact us if something has changed.",
+    "types": {
+      "ELECTRICITY_BILL": {
+        "name": "Electricity bill",
+        "why": "Latest CSPDCL bill. We use your consumption and sanctioned load to size your plant."
+      },
+      "CONSUMPTION_HISTORY": {
+        "name": "Consumption history",
+        "why": "Screenshot from the CSPDCL app showing past months' units. More months mean a more accurate size."
+      },
+      "AADHAAR": {
+        "name": "Aadhaar card",
+        "why": "Needed for your PM Surya Ghar subsidy application."
+      },
+      "PAN": {
+        "name": "PAN card",
+        "why": "Required for GST invoicing and the subsidy application."
+      },
+      "CANCELLED_CHEQUE": {
+        "name": "Cancelled cheque",
+        "why": "The ₹1,08,000 subsidy and the export credit of ₹1.95/unit will be credited to this account."
+      },
+      "OTHER": {
+        "name": "Other document",
+        "why": "Anything else we asked for (e.g. property papers)."
+      }
+    }
+  },
+  "timeline": {
+    "title": "Timeline",
+    "subtitle": "Everything that has happened on your project",
+    "empty": "Nothing here yet"
   }
 }

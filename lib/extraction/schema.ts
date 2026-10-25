@@ -42,42 +42,72 @@ export const ExtractedBillSchema = z.object({
 
 export type ExtractedBill = z.infer<typeof ExtractedBillSchema>;
 
-/** JSON schema handed to Claude as a tool input schema (structured output). */
-export const EXTRACTION_TOOL_SCHEMA = {
+const num = (description: string) => ({ type: ["number", "null"], description });
+const str = (description: string) => ({ type: ["string", "null"], description });
+
+/**
+ * JSON schema for Claude's structured output (output_config.format). Every
+ * field is required-but-nullable with no extra keys, as structured outputs
+ * expect; ExtractedBillSchema then re-validates and coerces the result.
+ */
+export const EXTRACTION_JSON_SCHEMA = {
   type: "object",
+  additionalProperties: false,
+  required: [
+    "documentKind",
+    "serviceNo",
+    "consumerName",
+    "billAddress",
+    "purpose",
+    "tariffCategory",
+    "sanctionedLoadW",
+    "connectedLoadKw",
+    "phase",
+    "billMonth",
+    "currentReading",
+    "previousReading",
+    "multiplyingFactor",
+    "billedUnits",
+    "netBillAmount",
+    "existingSolarExport",
+    "monthlyConsumption",
+    "confidence",
+    "notes",
+  ],
   properties: {
     documentKind: {
       type: "string",
       enum: ["CSPDCL_BILL", "CONSUMPTION_HISTORY", "OTHER_BILL", "NOT_A_BILL"],
-      description: "CSPDCL_BILL for a CSPDCL electricity bill, CONSUMPTION_HISTORY for a screenshot of the CSPDCL app's consumption history.",
+      description:
+        "CSPDCL_BILL for a CSPDCL electricity bill; CONSUMPTION_HISTORY for a screenshot of the CSPDCL app's consumption history.",
     },
-    serviceNo: { type: ["string", "null"], description: "सर्विस क्रमांक / Service number, digits only" },
-    consumerName: { type: ["string", "null"], description: "उपभोक्ता का नाम, as printed (Latin script)" },
-    billAddress: { type: ["string", "null"], description: "पता, single line" },
-    purpose: { type: ["string", "null"], description: "प्रयोजन, e.g. 'Residential Connection'" },
-    tariffCategory: { type: ["string", "null"], description: "टैरिफ श्रेणी, e.g. 'LV1DL1SR25'" },
-    sanctionedLoadW: { type: ["number", "null"], description: "अनुबंध भार / contract (sanctioned) load in WATTS. '4000.00W' → 4000; '4 KW' → 4000" },
-    connectedLoadKw: { type: ["number", "null"], description: "Connected load in kW if printed separately, else null" },
+    serviceNo: str("सर्विस क्रमांक / service number, digits only"),
+    consumerName: str("उपभोक्ता का नाम as printed (Latin script)"),
+    billAddress: str("पता, single line"),
+    purpose: str("प्रयोजन, e.g. 'Residential Connection'"),
+    tariffCategory: str("टैरिफ श्रेणी, e.g. 'LV1DL1SR25'"),
+    sanctionedLoadW: num("अनुबंध भार / contract (sanctioned) load in WATTS: '4000.00W' → 4000, '4 KW' → 4000"),
+    connectedLoadKw: num("Connected load in kW only if printed separately"),
     phase: { type: ["string", "null"], enum: ["SINGLE", "THREE", null], description: "विद्युत फेज; null if blank" },
-    billMonth: { type: ["string", "null"], description: "बिल अवधि as YYYY-MM" },
-    currentReading: { type: ["number", "null"], description: "वर्तमान रीडिंग" },
-    previousReading: { type: ["number", "null"], description: "पिछली रीडिंग" },
-    multiplyingFactor: { type: ["number", "null"], description: "गुणांक (usually 1)" },
-    billedUnits: { type: ["number", "null"], description: "विद्युत खपत / कुल खपत for the bill month, in units (kWh)" },
-    netBillAmount: { type: ["number", "null"], description: "नियत तिथि तक शुद्ध देयक राशि (net amount payable by due date), in rupees" },
-    existingSolarExport: { type: ["number", "null"], description: "Solar Roof Top export consumption units, 0 if printed as 0" },
+    billMonth: str("बिल अवधि as YYYY-MM"),
+    currentReading: num("वर्तमान रीडिंग"),
+    previousReading: num("पिछली रीडिंग"),
+    multiplyingFactor: num("गुणांक (usually 1)"),
+    billedUnits: num("विद्युत खपत / कुल खपत for the bill month, in units (kWh)"),
+    netBillAmount: num("नियत तिथि तक शुद्ध देयक राशि (net amount payable by the due date), rupees"),
+    existingSolarExport: num("Solar Roof Top export consumption units; 0 if printed as 0"),
     monthlyConsumption: {
       type: "array",
       description:
         "Every month of consumption visible: the bill month itself (billedUnits) plus each row of 'विगत 6 रीडिंग का ब्यौरा', or every bar/row of the app history. Month as YYYY-MM.",
       items: {
         type: "object",
-        properties: { month: { type: "string" }, units: { type: ["number", "null"] } },
+        additionalProperties: false,
         required: ["month", "units"],
+        properties: { month: { type: "string" }, units: { type: ["number", "null"] } },
       },
     },
     confidence: { type: "number", description: "0–1: how sure you are that every non-null field is read correctly" },
-    notes: { type: ["string", "null"], description: "Anything unclear or unreadable" },
+    notes: str("Anything unclear, cut off or unreadable"),
   },
-  required: ["documentKind", "monthlyConsumption", "confidence"],
 } as const;
