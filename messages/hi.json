@@ -497,7 +497,8 @@
       "daysInStage": "चरण में {n} दिन",
       "empty": "अभी कोई प्रोजेक्ट नहीं",
       "searchPlaceholder": "नाम, फ़ोन, सर्विस नंबर या रेफ़ नंबर से खोजें",
-      "since": "{n} दिन"
+      "since": "{n} दिन",
+      "blockerCount": "{n} रुकावट"
     },
     "settings": {
       "title": "सेटिंग्स",

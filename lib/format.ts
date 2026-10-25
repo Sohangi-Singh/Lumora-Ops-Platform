@@ -157,3 +157,10 @@ export function toIstLocalInput(date: Date): string {
   const g = (t: string) => p.find((x) => x.type === t)?.value ?? "00";
   return `${g("year")}-${g("month")}-${g("day")}T${g("hour") === "24" ? "00" : g("hour")}:${g("minute")}`;
 }
+
+/** Whole IST calendar days from `from` until `to` (0 = today). */
+export function istCalendarDaysUntil(to: Date, from: Date = new Date()): number {
+  const a = istDateParts(from);
+  const b = istDateParts(to);
+  return Math.round((Date.UTC(b.year, b.month - 1, b.day) - Date.UTC(a.year, a.month - 1, a.day)) / 86_400_000);
+}

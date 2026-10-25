@@ -35,6 +35,7 @@ export function NotificationBell({ items, unread, topics }: { items: BellItem[];
       }}
     >
       <PopoverTrigger
+        id="notifications-trigger"
         aria-label={t("title")}
         className="relative flex size-10 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-navy focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none"
       >

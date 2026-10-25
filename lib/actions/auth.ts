@@ -117,6 +117,7 @@ export async function registerAction(_prev: AuthFormState, formData: FormData): 
 }
 
 export async function signOutAction(): Promise<void> {
+  (await cookies()).delete("lumora_dev_user");
   if (process.env.NEXT_PUBLIC_SUPABASE_URL) {
     const supabase = await createSupabaseServerClient();
     await supabase.auth.signOut();

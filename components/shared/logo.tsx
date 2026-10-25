@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils";
 
 type LogoProps = {
   variant?: "full" | "mark" | "lockup";
+  /** lockup only: hide the wordmark on narrow screens */
+  compact?: boolean;
   tone?: "onLight" | "onDark";
   className?: string;
   priority?: boolean;
@@ -13,7 +15,7 @@ type LogoProps = {
  * - mark: just the sun + panels symbol.
  * - lockup: symbol + wordmark rendered as text so it works on navy too.
  */
-export function Logo({ variant = "lockup", tone = "onLight", className, priority }: LogoProps) {
+export function Logo({ variant = "lockup", tone = "onLight", compact, className, priority }: LogoProps) {
   if (variant === "full") {
     return (
       <Image
@@ -41,10 +43,10 @@ export function Logo({ variant = "lockup", tone = "onLight", className, priority
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <Image src="/brand/mark.png" alt="" width={512} height={448} priority={priority} className="h-8 w-auto" />
-      <span className="flex flex-col leading-none">
+      <span className={cn("flex flex-col leading-none", compact && "max-[419px]:sr-only")}>
         <span
           className={cn(
-            "text-[15px] font-semibold tracking-[0.08em]",
+            "text-[13px] font-semibold tracking-[0.08em] whitespace-nowrap sm:text-[15px]",
             tone === "onDark" ? "text-white" : "text-navy",
           )}
         >
@@ -52,7 +54,7 @@ export function Logo({ variant = "lockup", tone = "onLight", className, priority
         </span>
         <span
           className={cn(
-            "mt-1 text-[10px] font-medium tracking-[0.18em]",
+            "mt-1 hidden text-[10px] font-medium tracking-[0.18em] sm:block",
             tone === "onDark" ? "text-gold" : "text-gold-ink",
           )}
         >

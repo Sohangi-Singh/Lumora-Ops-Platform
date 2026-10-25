@@ -497,7 +497,8 @@
       "daysInStage": "{n}d in stage",
       "empty": "No projects yet",
       "searchPlaceholder": "Search name, phone, service no. or ref no.",
-      "since": "{n}d"
+      "since": "{n}d",
+      "blockerCount": "{n, plural, one {# blocker} other {# blockers}}"
     },
     "settings": {
       "title": "Settings",

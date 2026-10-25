@@ -114,7 +114,7 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
                               </StatusChip>
                             ) : p.blockerCount ? (
                               <StatusChip tone={p.critical ? "danger" : "neutral"} className="mt-1.5">
-                                {p.blockerCount} {t("admin.projects.blockers").toLowerCase()}
+                                {t("admin.dash.blockerCount", { n: p.blockerCount })}
                               </StatusChip>
                             ) : null}
                           </Link>

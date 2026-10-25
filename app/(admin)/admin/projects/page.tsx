@@ -53,7 +53,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
         <EmptyState title={t("admin.projects.empty")} />
       ) : (
         <Card className="gap-0 p-0">
-          <div className="hidden grid-cols-[2fr_1.3fr_1fr_0.7fr_2fr] gap-4 border-b border-border px-5 py-3 text-xs font-medium text-muted-foreground uppercase md:grid">
+          <div className="hidden grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,0.7fr)_minmax(0,2fr)] gap-4 border-b border-border px-5 py-3 text-xs font-medium text-muted-foreground uppercase md:grid">
             <span>{t("admin.projects.customer")}</span>
             <span>{t("admin.projects.stage")}</span>
             <span>{t("admin.projects.worker")}</span>
@@ -65,7 +65,7 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
               <li key={r.id} className="border-b border-border/60 last:border-0">
                 <Link
                   href={`/admin/projects/${r.id}`}
-                  className="grid gap-1.5 px-5 py-4 hover:bg-cream/50 md:grid-cols-[2fr_1.3fr_1fr_0.7fr_2fr] md:items-center md:gap-4"
+                  className="grid gap-1.5 px-5 py-4 hover:bg-cream/50 md:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,0.7fr)_minmax(0,2fr)] md:items-center md:gap-4"
                 >
                   <div className="min-w-0">
                     <div className="truncate font-medium text-navy">{r.customer.user.name}</div>
@@ -78,10 +78,10 @@ export default async function ProjectsPage({ searchParams }: { searchParams: Pro
                   </div>
                   <div className="text-sm text-muted-foreground">{r.assignedWorker?.name ?? t("admin.projects.unassigned")}</div>
                   <div className="text-sm tabular">{r.systemKw ? `${r.systemKw} kW` : "—"}</div>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex min-w-0 flex-wrap gap-1">
                     {r.blockers.slice(0, 2).map((b, i) => (
-                      <StatusChip key={i} tone={b.severity === "critical" ? "danger" : b.owner === "ADMIN" ? "gold" : "neutral"} className="max-w-full truncate">
-                        {describeBlocker(b, tr)}
+                      <StatusChip key={i} tone={b.severity === "critical" ? "danger" : b.owner === "ADMIN" ? "gold" : "neutral"} className="max-w-full">
+                        <span className="truncate">{describeBlocker(b, tr)}</span>
                       </StatusChip>
                     ))}
                     {r.blockers.length > 2 ? <StatusChip>+{r.blockers.length - 2}</StatusChip> : null}

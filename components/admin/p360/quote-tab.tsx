@@ -108,7 +108,7 @@ export async function QuoteTab({ data }: { data: Project360 }) {
 
       <QuoteOverrides
         projectId={project.id}
-        pdfUrl={current.pdfPath ? `/api/quotes/${current.id}/pdf` : null}
+        pdfUrl={`/api/quotes/${current.id}/pdf?v=${current.status}`}
         defaults={{ systemKw: current.systemKw, phase: current.phase, panelCount: current.panelCount }}
         editable={editable}
       />
@@ -152,11 +152,9 @@ export async function QuoteTab({ data }: { data: Project360 }) {
                 </span>
                 <span className="flex items-center gap-2">
                   <StatusChip tone={TONE[q.status]}>{t(`status.${q.status}`)}</StatusChip>
-                  {q.pdfPath ? (
-                    <a href={`/api/quotes/${q.id}/pdf`} target="_blank" rel="noopener" className="text-xs font-medium text-gold-ink hover:underline">
-                      PDF
-                    </a>
-                  ) : null}
+                  <a href={`/api/quotes/${q.id}/pdf`} target="_blank" rel="noopener" className="text-xs font-medium text-gold-ink hover:underline">
+                    PDF
+                  </a>
                 </span>
               </li>
             ))}

@@ -142,7 +142,7 @@ export function AppShell({
       <header className="sticky top-0 z-20 border-b border-border/70 bg-cream/90 backdrop-blur supports-[backdrop-filter]:bg-cream/75">
         <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:h-16 sm:px-6">
           <Link href={items[0].href} className="lg:hidden" aria-label="Lumora Solar home">
-            <Logo />
+            <Logo compact />
           </Link>
           <div className="flex-1" />
           <LanguageSwitcher />

@@ -10,7 +10,7 @@ import { StatusChip } from "@/components/shared/status-chip";
 import { Card } from "@/components/ui/card";
 import { requirePageRole } from "@/lib/authz";
 import { db } from "@/lib/db";
-import { formatDate, formatINR } from "@/lib/format";
+import { formatDate, formatINR, istCalendarDaysUntil } from "@/lib/format";
 import { getCustomerProject } from "@/lib/portal/data";
 import { expireStaleQuotes } from "@/lib/quotes/service";
 import { projectTopic } from "@/lib/realtime/topics";
@@ -47,7 +47,7 @@ export default async function CustomerQuotePage() {
 
   const computed = quote.computed as unknown as { pricing: PricingResult; economics: EconomicsResult };
   const expired = quote.status === "EXPIRED";
-  const daysLeft = Math.max(0, Math.ceil((quote.validTill.getTime() - Date.now()) / 86_400_000));
+  const daysLeft = Math.max(0, istCalendarDaysUntil(quote.validTill));
   const pdf = `/api/quotes/${quote.id}/pdf`;
 
   return (

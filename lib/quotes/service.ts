@@ -245,9 +245,16 @@ export async function approveQuote(quoteId: string, adminId: string): Promise<vo
   const settings = parseSettings((quote.inputsSnapshot as { settings?: unknown }).settings);
   const now = new Date();
   const finalQuote = { ...quote, quoteDate: now, validTill: validTillDate(now, settings.quote.validityDays) };
+  // Render now so a broken template fails the approval loudly; storage is best-effort
+  // because the PDF can always be re-rendered from the quote's snapshot.
   const pdf = await renderStoredQuote(finalQuote, { draft: false });
-  const pdfPath = pdfPathFor(quote, true);
-  await uploadBuffer(BUCKETS.quotes, pdfPath, pdf, "application/pdf");
+  let pdfPath: string | null = pdfPathFor(quote, true);
+  try {
+    await uploadBuffer(BUCKETS.quotes, pdfPath, pdf, "application/pdf");
+  } catch (err) {
+    console.error("[quote] final PDF upload failed; will render on demand", err);
+    pdfPath = null;
+  }
 
   await withWorkflow(async (tx, fx) => {
     const updated = await tx.quote.updateMany({

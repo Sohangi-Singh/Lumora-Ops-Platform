@@ -1,10 +1,11 @@
 import { Check } from "lucide-react";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export type StepperStage = { key: string; label: string; state: "done" | "current" | "todo"; date?: string };
 
 /** Horizontal on desktop, vertical on mobile. Navy = done, gold pulse = current, grey = upcoming. */
-export function StageStepper({ stages }: { stages: StepperStage[] }) {
+export function StageStepper({ stages, currentSlot }: { stages: StepperStage[]; currentSlot?: ReactNode }) {
   return (
     <>
       <ol className="hidden items-start md:flex" aria-label="Project progress">
@@ -41,11 +42,12 @@ export function StageStepper({ stages }: { stages: StepperStage[] }) {
               />
             ) : null}
             <Dot state={s.state} index={i} />
-            <div className="pt-1.5">
+            <div className="min-w-0 flex-1 pt-1.5">
               <div className={cn("text-sm font-medium", s.state === "todo" ? "text-muted-foreground" : "text-navy", s.state === "current" && "font-semibold")}>
                 {s.label}
               </div>
               {s.date ? <div className="text-xs text-muted-foreground">{s.date}</div> : null}
+              {s.state === "current" && currentSlot ? <div className="mt-3 -ml-1">{currentSlot}</div> : null}
             </div>
           </li>
         ))}
