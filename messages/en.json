@@ -467,6 +467,193 @@
       "none": "No payments yet",
       "noQuote": "Payments open once a quotation is accepted.",
       "duplicate": "Duplicate — refund"
+    },
+    "dash": {
+      "title": "Overview",
+      "subtitle": "Live view of every rooftop project",
+      "kpi": {
+        "active": "Active projects",
+        "quotes": "Quotes to approve",
+        "verify": "Payments to verify",
+        "collected": "Collected",
+        "pending": "Pending collection",
+        "sla": "At SLA risk"
+      },
+      "pipeline": "Pipeline",
+      "pipelineHint": "Stages move only through actions and guards — open a project to act.",
+      "blockers": "Blockers",
+      "blockersHint": "Oldest first",
+      "filter": {
+        "ALL": "All",
+        "CUSTOMER": "Waiting on customer",
+        "WORKER": "Waiting on worker",
+        "ADMIN": "Waiting on us"
+      },
+      "noBlockers": "No blockers — everything is moving",
+      "revenue": "Revenue collected by month",
+      "revenueTable": "Show as table",
+      "month": "Month",
+      "amount": "Collected",
+      "daysInStage": "{n}d in stage",
+      "empty": "No projects yet",
+      "searchPlaceholder": "Search name, phone, service no. or ref no.",
+      "since": "{n}d"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Everything business-specific lives here. Every change is audit-logged.",
+      "save": "Save settings",
+      "saved": "Settings saved",
+      "sections": {
+        "sizing": "Sizing",
+        "gst": "GST split",
+        "subsidy": "Subsidy",
+        "economics": "Customer economics",
+        "payment": "Payment split",
+        "quote": "Quotation",
+        "terms": "Terms text",
+        "bank": "Bank details",
+        "signatory": "Signatory",
+        "company": "Company contact",
+        "cityCodes": "City codes",
+        "letterhead": "Letterhead margins",
+        "sla": "SLAs"
+      },
+      "f": {
+        "sizing": {
+          "panelWattage": "Panel wattage (Wp)",
+          "unitsPerKwPerDay": "Generation per kW per day (units)",
+          "sqmPerKwpMin": "Roof area per kWp — min (m²)",
+          "sqmPerKwp": "Roof area per kWp used for cap (m²)",
+          "roundingStepKw": "Rounding step (kW)",
+          "minSystemKw": "Minimum system (kW)",
+          "maxMonthsForAverage": "Max months in average",
+          "minMonthsForAverage": "Min months required"
+        },
+        "gst": {
+          "goodsSharePct": "Goods share of contract (%)",
+          "goodsRatePct": "GST on goods (%)",
+          "servicesSharePct": "Services share (%)",
+          "servicesRatePct": "GST on services (%)"
+        },
+        "subsidy": {
+          "centralPerKwFirst2": "Central ₹/kW for first 2 kW",
+          "centralThirdKw": "Central ₹ for 3rd kW",
+          "centralCap": "Central cap (₹)",
+          "stateAmount": "State subsidy (₹)"
+        },
+        "economics": {
+          "exportTariffPerUnit": "Export tariff (₹/unit)",
+          "defaultTariffPerUnit": "Default tariff (₹/unit)",
+          "panelDegradationPctPerYear": "Panel degradation (%/year)",
+          "analysisYears": "Savings horizon (years)"
+        },
+        "payment": {
+          "advancePct": "Advance (%)",
+          "balancePct": "Balance (%)"
+        },
+        "quote": {
+          "validityDays": "Quote validity (days)",
+          "completionDays": "Completion SLA (days)",
+          "earthingCount": "Earthing pits (nos.)",
+          "dcCableSlackPct": "DC cable slack (%)",
+          "basicPerWpMethod": "Basic per-Wp formula",
+          "includeSavingsPage": "Add savings page to PDF"
+        },
+        "terms": {
+          "paymentTerms": "Payment terms (one per line, **bold**)",
+          "generalTerms": "General terms (one per line, **bold**)"
+        },
+        "bank": {
+          "accountName": "Account name",
+          "bankName": "Bank",
+          "accountNumber": "Account number",
+          "accountType": "Account type",
+          "ifsc": "IFSC"
+        },
+        "signatory": {
+          "name": "Signatory name",
+          "designation": "Designation",
+          "phone": "Contact number",
+          "email": "Email"
+        },
+        "company": {
+          "supportPhone": "Support phone",
+          "supportEmail": "Support email"
+        },
+        "cityCodes": {
+          "lines": "City codes (CODE | City | State, one per line)"
+        },
+        "letterhead": {
+          "marginTop": "Top margin (pt)",
+          "marginBottom": "Bottom margin (pt)",
+          "marginLeft": "Left margin (pt)",
+          "marginRight": "Right margin (pt)"
+        },
+        "sla": {
+          "surveyDueDays": "Survey due within (days)",
+          "quoteApprovalHours": "Quote approval within (hours)",
+          "slaRiskDaysRemaining": "Flag SLA risk when ≤ days left"
+        }
+      },
+      "methods": {
+        "SPLIT_OF_INCLUSIVE": "Split inclusive value (matches sample)",
+        "BLENDED_RATE": "Blended GST rate"
+      },
+      "catalog": "Bill of materials catalog",
+      "catalogHint": "Use '{kW}', '{phase}', '{panelWattage}' placeholders and **bold**.",
+      "pricing": "Pricing slabs",
+      "addRow": "Add row",
+      "remove": "Remove",
+      "active": "Active",
+      "qtyRule": "Quantity rule",
+      "qtyText": "Quantity text",
+      "fixedQty": "Fixed qty",
+      "minKw": "Min kW",
+      "maxKw": "Max kW",
+      "rate": "₹/kW incl. GST",
+      "phaseAny": "Any phase",
+      "saveCatalog": "Save catalog",
+      "savePricing": "Save pricing",
+      "tabs": {
+        "general": "General",
+        "catalog": "Catalog",
+        "pricing": "Pricing",
+        "audit": "Audit log"
+      },
+      "col": {
+        "description": "Description",
+        "specification": "Specification",
+        "make": "Make / Standard",
+        "warranty": "Warranty",
+        "unit": "Unit",
+        "category": "Category",
+        "sortOrder": "Order"
+      },
+      "auditEmpty": "No changes yet"
+    },
+    "users": {
+      "title": "Users",
+      "subtitle": "Field workers and office admins",
+      "add": "Add user",
+      "role": {
+        "ADMIN": "Admin",
+        "WORKER": "Worker",
+        "CUSTOMER": "Customer"
+      },
+      "name": "Name",
+      "email": "Email",
+      "phone": "Mobile",
+      "password": "Temporary password",
+      "create": "Create user",
+      "created": "User created",
+      "deactivate": "Deactivate",
+      "activate": "Activate",
+      "inactive": "Inactive",
+      "updated": "User updated",
+      "jobs": "{n} open jobs",
+      "you": "You",
+      "roleLabel": "Role"
     }
   },
   "worker": {

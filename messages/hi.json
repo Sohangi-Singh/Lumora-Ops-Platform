@@ -467,6 +467,193 @@
       "none": "अभी कोई भुगतान नहीं",
       "noQuote": "कोटेशन स्वीकार होने के बाद भुगतान शुरू होंगे।",
       "duplicate": "दोहरा — रिफ़ंड करें"
+    },
+    "dash": {
+      "title": "सारांश",
+      "subtitle": "हर रूफटॉप प्रोजेक्ट की ताज़ा स्थिति",
+      "kpi": {
+        "active": "चालू प्रोजेक्ट",
+        "quotes": "मंज़ूरी बाकी कोटेशन",
+        "verify": "जाँच बाकी भुगतान",
+        "collected": "प्राप्त राशि",
+        "pending": "बाकी वसूली",
+        "sla": "समय-सीमा खतरे में"
+      },
+      "pipeline": "पाइपलाइन",
+      "pipelineHint": "चरण सिर्फ़ कार्य और नियमों से बदलते हैं — काम के लिए प्रोजेक्ट खोलें।",
+      "blockers": "रुकावटें",
+      "blockersHint": "सबसे पुरानी पहले",
+      "filter": {
+        "ALL": "सभी",
+        "CUSTOMER": "ग्राहक से बाकी",
+        "WORKER": "वर्कर से बाकी",
+        "ADMIN": "हमसे बाकी"
+      },
+      "noBlockers": "कोई रुकावट नहीं — सब ठीक चल रहा है",
+      "revenue": "हर महीने प्राप्त राशि",
+      "revenueTable": "टेबल में देखें",
+      "month": "महीना",
+      "amount": "प्राप्त",
+      "daysInStage": "चरण में {n} दिन",
+      "empty": "अभी कोई प्रोजेक्ट नहीं",
+      "searchPlaceholder": "नाम, फ़ोन, सर्विस नंबर या रेफ़ नंबर से खोजें",
+      "since": "{n} दिन"
+    },
+    "settings": {
+      "title": "सेटिंग्स",
+      "subtitle": "कारोबार से जुड़ी हर जानकारी यहीं है। हर बदलाव का रिकॉर्ड रहता है।",
+      "save": "सेटिंग्स सेव करें",
+      "saved": "सेटिंग्स सेव हुईं",
+      "sections": {
+        "sizing": "साइज़िंग",
+        "gst": "GST बँटवारा",
+        "subsidy": "सब्सिडी",
+        "economics": "ग्राहक बचत",
+        "payment": "भुगतान बँटवारा",
+        "quote": "कोटेशन",
+        "terms": "शर्तें",
+        "bank": "बैंक जानकारी",
+        "signatory": "हस्ताक्षरकर्ता",
+        "company": "कंपनी संपर्क",
+        "cityCodes": "शहर कोड",
+        "letterhead": "लेटरहेड मार्जिन",
+        "sla": "समय-सीमा"
+      },
+      "f": {
+        "sizing": {
+          "panelWattage": "पैनल वॉट (Wp)",
+          "unitsPerKwPerDay": "प्रति kW प्रति दिन बिजली (यूनिट)",
+          "sqmPerKwpMin": "प्रति kWp छत — न्यूनतम (वर्ग मी)",
+          "sqmPerKwp": "सीमा के लिए प्रति kWp छत (वर्ग मी)",
+          "roundingStepKw": "राउंडिंग (kW)",
+          "minSystemKw": "न्यूनतम सिस्टम (kW)",
+          "maxMonthsForAverage": "औसत में अधिकतम महीने",
+          "minMonthsForAverage": "कम से कम महीने"
+        },
+        "gst": {
+          "goodsSharePct": "सामान का हिस्सा (%)",
+          "goodsRatePct": "सामान पर GST (%)",
+          "servicesSharePct": "सेवा का हिस्सा (%)",
+          "servicesRatePct": "सेवा पर GST (%)"
+        },
+        "subsidy": {
+          "centralPerKwFirst2": "केंद्र ₹/kW (पहले 2 kW)",
+          "centralThirdKw": "केंद्र ₹ (तीसरा kW)",
+          "centralCap": "केंद्र अधिकतम (₹)",
+          "stateAmount": "राज्य सब्सिडी (₹)"
+        },
+        "economics": {
+          "exportTariffPerUnit": "एक्सपोर्ट दर (₹/यूनिट)",
+          "defaultTariffPerUnit": "सामान्य बिजली दर (₹/यूनिट)",
+          "panelDegradationPctPerYear": "पैनल क्षमता घटाव (%/साल)",
+          "analysisYears": "बचत अवधि (साल)"
+        },
+        "payment": {
+          "advancePct": "अग्रिम (%)",
+          "balancePct": "बाकी (%)"
+        },
+        "quote": {
+          "validityDays": "कोटेशन वैधता (दिन)",
+          "completionDays": "पूरा करने की समय-सीमा (दिन)",
+          "earthingCount": "अर्थिंग (संख्या)",
+          "dcCableSlackPct": "DC केबल अतिरिक्त (%)",
+          "basicPerWpMethod": "बेसिक प्रति Wp फ़ॉर्मूला",
+          "includeSavingsPage": "PDF में बचत पेज जोड़ें"
+        },
+        "terms": {
+          "paymentTerms": "भुगतान की शर्तें (हर लाइन एक)",
+          "generalTerms": "सामान्य शर्तें (हर लाइन एक)"
+        },
+        "bank": {
+          "accountName": "खाते का नाम",
+          "bankName": "बैंक",
+          "accountNumber": "खाता नंबर",
+          "accountType": "खाते का प्रकार",
+          "ifsc": "IFSC"
+        },
+        "signatory": {
+          "name": "हस्ताक्षरकर्ता",
+          "designation": "पद",
+          "phone": "संपर्क नंबर",
+          "email": "ईमेल"
+        },
+        "company": {
+          "supportPhone": "सहायता फ़ोन",
+          "supportEmail": "सहायता ईमेल"
+        },
+        "cityCodes": {
+          "lines": "शहर कोड (CODE | शहर | राज्य, हर लाइन एक)"
+        },
+        "letterhead": {
+          "marginTop": "ऊपरी मार्जिन (pt)",
+          "marginBottom": "निचला मार्जिन (pt)",
+          "marginLeft": "बायाँ मार्जिन (pt)",
+          "marginRight": "दायाँ मार्जिन (pt)"
+        },
+        "sla": {
+          "surveyDueDays": "सर्वे कितने दिन में",
+          "quoteApprovalHours": "कोटेशन मंज़ूरी (घंटे)",
+          "slaRiskDaysRemaining": "समय-सीमा खतरा (बचे दिन ≤)"
+        }
+      },
+      "methods": {
+        "SPLIT_OF_INCLUSIVE": "GST सहित राशि का बँटवारा (सैंपल जैसा)",
+        "BLENDED_RATE": "मिश्रित GST दर"
+      },
+      "catalog": "सामान की सूची (कैटलॉग)",
+      "catalogHint": "'{kW}', '{phase}', '{panelWattage}' और **bold** इस्तेमाल करें।",
+      "pricing": "कीमत स्लैब",
+      "addRow": "लाइन जोड़ें",
+      "remove": "हटाएं",
+      "active": "चालू",
+      "qtyRule": "मात्रा नियम",
+      "qtyText": "मात्रा टेक्स्ट",
+      "fixedQty": "तय मात्रा",
+      "minKw": "न्यूनतम kW",
+      "maxKw": "अधिकतम kW",
+      "rate": "₹/kW (GST सहित)",
+      "phaseAny": "कोई भी फेज़",
+      "saveCatalog": "कैटलॉग सेव करें",
+      "savePricing": "कीमतें सेव करें",
+      "tabs": {
+        "general": "सामान्य",
+        "catalog": "कैटलॉग",
+        "pricing": "कीमतें",
+        "audit": "बदलाव रिकॉर्ड"
+      },
+      "col": {
+        "description": "विवरण",
+        "specification": "स्पेसिफ़िकेशन",
+        "make": "मेक / मानक",
+        "warranty": "वारंटी",
+        "unit": "इकाई",
+        "category": "श्रेणी",
+        "sortOrder": "क्रम"
+      },
+      "auditEmpty": "अभी कोई बदलाव नहीं"
+    },
+    "users": {
+      "title": "यूज़र",
+      "subtitle": "फ़ील्ड वर्कर और ऑफ़िस एडमिन",
+      "add": "यूज़र जोड़ें",
+      "role": {
+        "ADMIN": "एडमिन",
+        "WORKER": "वर्कर",
+        "CUSTOMER": "ग्राहक"
+      },
+      "name": "नाम",
+      "email": "ईमेल",
+      "phone": "मोबाइल",
+      "password": "अस्थायी पासवर्ड",
+      "create": "यूज़र बनाएं",
+      "created": "यूज़र बन गया",
+      "deactivate": "बंद करें",
+      "activate": "चालू करें",
+      "inactive": "बंद",
+      "updated": "यूज़र अपडेट हुआ",
+      "jobs": "{n} खुले काम",
+      "you": "आप",
+      "roleLabel": "भूमिका"
     }
   },
   "worker": {
