@@ -189,7 +189,7 @@ npm run dev                 # http://localhost:3000
 **No Supabase project yet?** `npm run db:local` starts an embedded Postgres on port 54329 (no Docker). Set `DATABASE_URL` and `DIRECT_URL` to `postgresql://postgres:postgres@localhost:54329/lumora` and leave the Supabase variables empty. In `next dev` the login page then offers a **dev-only user switcher** (`/dev/login`) to sign in as any seeded user. It does nothing whenever `NODE_ENV=production` or Supabase is configured. Uploads, realtime and emails need the real services.
 
 **Supabase project setup** (free tier is enough):
-1. Create a project; copy the Project URL, anon key and service-role key; copy the pooled (6543, add `?pgbouncer=true`) and direct (5432) connection strings.
+1. Create a project; copy the Project URL, anon key and service-role key; copy the transaction pooler (6543, append `?pgbouncer=true&connection_limit=5&pool_timeout=20`) and direct (5432) connection strings.
 2. `npx prisma migrate deploy` then `SEED_RESET=1 npm run db:seed` — the seed creates the private buckets (`project-documents`, `project-photos`, `quotes`), Auth users and demo files.
 3. Nothing else: Realtime Broadcast needs no table publication, and buckets have no public policies.
 
@@ -199,7 +199,7 @@ Useful scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run quote:
 
 | Variable | Required | Purpose |
 |---|---|---|
-| `DATABASE_URL` | yes | Postgres (Supabase pooled, `?pgbouncer=true`) used by the app |
+| `DATABASE_URL` | yes | Postgres (Supabase transaction pooler, port 6543, append `?pgbouncer=true&connection_limit=5&pool_timeout=20`) used by the app |
 | `DIRECT_URL` | yes | Direct Postgres connection used by Prisma migrations |
 | `NEXT_PUBLIC_SUPABASE_URL` | yes | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | yes | Public anon key (Auth + Realtime subscribe) |
