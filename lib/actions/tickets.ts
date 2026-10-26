@@ -7,9 +7,8 @@ import { db } from "@/lib/db";
 import { AppError } from "@/lib/errors";
 import { rateLimit } from "@/lib/ratelimit";
 import { runAction } from "@/lib/result";
+import { TICKET_CATEGORIES } from "@/lib/tickets/categories";
 import { notifyAdmins, notifyCustomer, recordEvent, withWorkflow } from "@/lib/workflow/service";
-
-export const TICKET_CATEGORIES = ["NO_GENERATION", "INVERTER", "CLEANING", "DAMAGE", "NET_METER", "OTHER"] as const;
 
 const CreateSchema = z.object({ category: z.enum(TICKET_CATEGORIES), description: z.string().trim().min(5).max(2000) });
 

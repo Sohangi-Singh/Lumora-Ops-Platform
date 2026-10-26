@@ -13,8 +13,8 @@ import { useErrorText } from "@/hooks/use-error-text";
 import { finalizePhotoUploadAction, requestPhotoUploadAction } from "@/lib/actions/field";
 import { createTicketAction } from "@/lib/actions/tickets";
 import { compressIfImage, effectiveMime, uploadWithRetry } from "@/lib/client/upload";
+import { TICKET_CATEGORIES as CATEGORIES } from "@/lib/tickets/categories";
 
-const CATEGORIES = ["NO_GENERATION", "INVERTER", "CLEANING", "DAMAGE", "NET_METER", "OTHER"] as const;
 
 export function TicketForm() {
   const t = useTranslations("support");
