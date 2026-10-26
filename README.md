@@ -216,7 +216,7 @@ Useful scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run quote:
 
 ## Deployment
 
-1. Push the repo to GitHub and import it in Vercel (framework: Next.js; build command default).
+1. Push the repo to GitHub and import it in Vercel (framework: Next.js; build command default). `vercel.json` pins functions to `icn1` (Seoul) to sit next to the Supabase database — change it if your Supabase region differs.
 2. Add every variable above in Vercel → Settings → Environment Variables.
 3. Run migrations + seed against the Supabase database from your machine (`npx prisma migrate deploy && SEED_RESET=1 npm run db:seed`).
 4. In the Razorpay dashboard (test mode) add a webhook to `https://<your-domain>/api/webhooks/razorpay` for `payment.captured` and `payment.failed` with the same secret as `RAZORPAY_WEBHOOK_SECRET`.
