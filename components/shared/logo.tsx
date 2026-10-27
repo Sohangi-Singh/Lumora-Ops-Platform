@@ -33,8 +33,8 @@ export function Logo({ variant = "lockup", tone = "onLight", compact, className,
       <Image
         src="/brand/mark.png"
         alt="Lumora Solar"
-        width={512}
-        height={448}
+        width={640}
+        height={479}
         priority={priority}
         className={cn("h-8 w-auto", className)}
       />
@@ -42,7 +42,7 @@ export function Logo({ variant = "lockup", tone = "onLight", compact, className,
   }
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <Image src="/brand/mark.png" alt="" width={512} height={448} priority={priority} className="h-8 w-auto" />
+      <Image src="/brand/mark.png" alt="" width={640} height={479} priority={priority} className="h-8 w-auto" />
       <span className={cn("flex flex-col leading-none", compact && "max-[419px]:sr-only")}>
         <span
           className={cn(
