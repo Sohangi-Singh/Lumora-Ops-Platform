@@ -232,7 +232,7 @@ Password for every demo account: **`Lumora@2026`**
 | Role | Email | Where they are |
 |---|---|---|
 | Admin | `admin.demo@example.com` | everything |
-| Worker | `ravi.demo@example.com` (Hindi) | survey scheduled for Rohit tomorrow |
+| Worker | `ravi.demo@example.com` (Hindi) | survey for Rohit scheduled later today |
 | Worker | `manoj.demo@example.com` | installation in progress for Neha |
 | Customer | `kavita.demo@example.com` (Hindi) | just registered — no documents yet |
 | Customer | `priya.demo@example.com` | Aadhaar **rejected** (blurry), PAN under review |

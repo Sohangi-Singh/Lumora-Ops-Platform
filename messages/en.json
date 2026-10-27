@@ -98,7 +98,8 @@
     "cities": {
       "RPR": "Raipur",
       "DEL": "Delhi NCR"
-    }
+    },
+    "staffNote": "This sign-up is for homeowners. Lumora office staff and field workers receive their accounts from the admin."
   },
   "stages": {
     "REGISTERED": "Registered",

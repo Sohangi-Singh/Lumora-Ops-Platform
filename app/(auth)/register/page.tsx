@@ -15,6 +15,7 @@ export default async function RegisterPage() {
     <div>
       <h1 className="text-2xl font-semibold sm:text-3xl">{t("registerTitle")}</h1>
       <p className="mt-2 text-sm text-muted-foreground">{t("registerSubtitle")}</p>
+      <p className="mt-3 rounded-xl bg-gold-soft px-3 py-2 text-xs text-navy">{t("staffNote")}</p>
       <RegisterForm cities={settings.cityCodes.map((c) => c.code)} />
     </div>
   );

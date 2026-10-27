@@ -295,7 +295,8 @@ async function main() {
     if (reached("SURVEY")) {
       const workerId = who.workers[sp.worker];
       const workerName = sp.worker === 0 ? "Ravi Kumar Sahu" : "Manoj Patel";
-      const scheduledAt = sp.stage === "SURVEY" ? new Date(now.getTime() + DAY + 2 * 3600_000) : step(1);
+      // Rohit's survey is due later today so it shows under the worker's "Today" tab in a demo.
+      const scheduledAt = sp.stage === "SURVEY" ? new Date(now.getTime() + 2 * 3600_000) : step(1);
       await db.project.update({ where: { id: pid }, data: { assignedWorkerId: workerId } });
       await event(pid, adminId, { type: "WORKER_ASSIGNED", worker: workerName, date: scheduledAt.toDateString() }, sp.stage === "SURVEY" ? step(0) : scheduledAt);
       const submitted = reached("QUOTE");
