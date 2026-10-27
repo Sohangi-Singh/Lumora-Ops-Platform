@@ -2,7 +2,7 @@
 
 **One platform for a rooftop-solar EPC business** — customers upload documents and track their project live, field workers record geo-tagged site surveys from their phones, the system auto-generates the techno-commercial quotation on the company letterhead, the owner approves it, the customer accepts and pays via Razorpay, and every stage up to subsidy credit is tracked in real time, in English and Hindi.
 
-- **Live demo:** _add the Vercel URL here after deploy_
+- **Live demo:** https://lumora-ops-platform-ae4b.vercel.app (demo logins below; Razorpay in test mode)
 - **Stack:** Next.js 15 (App Router, TypeScript strict) · Supabase (Postgres, Auth, Storage, Realtime) · Prisma · Zod · @react-pdf/renderer · Razorpay · Claude vision · next-intl · Leaflet/OSM · Vitest
 
 ---
@@ -58,7 +58,7 @@ Lumora Solar Private Limited (Raipur, Chhattisgarh and Delhi NCR) installs on-gr
 | **Zod** | One validation layer for forms, server actions, route handlers, AI output and settings JSON. |
 | **@react-pdf/renderer** | Deterministic, server-side PDF from React components — the quote is data, not a Word file. |
 | **Razorpay** | Indian payments (UPI first) with Orders API, signed Checkout callbacks and webhooks. |
-| **Claude vision (Anthropic API)** | Reads Hindi/English CSPDCL bills and app screenshots into structured JSON; paired with a deterministic parser and cross-checks so it is never trusted blindly. Model comes from `ANTHROPIC_MODEL`. |
+| **AI vision — Claude or Gemini** | Reads Hindi/English CSPDCL bills and app screenshots into structured JSON; paired with a deterministic parser and cross-checks so it is never trusted blindly. Uses Claude when `ANTHROPIC_API_KEY`/`ANTHROPIC_MODEL` are set, otherwise Gemini (`GEMINI_API_KEY`, default model `gemini-3.5-flash-lite`). |
 | **next-intl** | Typed message catalogues for English and natural Chhattisgarh Hindi; cookie-based locale (no URL prefix) so shared links work for everyone. |
 | **Leaflet + OpenStreetMap** | Survey location map with no paid map key. |
 | **Tailwind v4 + shadcn/ui** | Accessible primitives themed to the brand (navy `#1B263B`, cream `#F4F1DE`, gold `#C6A75E` accents only). |
@@ -159,7 +159,7 @@ Entering the QUOTE stage triggers this automatically. Ref numbers (`0241/RPR/10/
 CSPDCL PDFs have a garbled Hindi text layer but intact digits, so extraction runs **three independent signals**:
 
 1. a deterministic **text-layer parser** (`lib/extraction/cspdclParser.ts`) anchored on value shapes — 10-digit service no., `4000.00W`, `YYYY/MM reading units` table rows;
-2. **Claude vision** with a strict JSON schema (structured output), validated again with Zod; PDFs go in as document blocks, photos/screenshots as images;
+2. **AI vision** (Claude, or Gemini as configured) with a strict JSON schema (structured output), validated again with Zod; PDFs and photos/screenshots go in as-is;
 3. **cross-checks**: previous reading + units ≈ current reading, continuous months, plausible units, text-vs-vision agreement → a confidence score; low confidence or a failed critical check ⇒ "Needs review".
 
 It runs after the upload response (never blocks the customer), merges up to 24 months from the CSPDCL app screenshot, keeps admin-entered months, and degrades to manual entry if the API key is missing or anything fails. **Only admin-confirmed data feeds sizing.**
@@ -206,6 +206,8 @@ Useful scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run quote:
 | `SUPABASE_SERVICE_ROLE_KEY` | yes | Server-only: Storage, Auth admin, Realtime broadcast |
 | `ANTHROPIC_API_KEY` | optional | Claude vision bill extraction (text parser + manual entry work without it) |
 | `ANTHROPIC_MODEL` | optional | Claude model id used for extraction |
+| `GEMINI_API_KEY` | optional | Gemini vision for bill extraction (used when no Anthropic key is set) |
+| `GEMINI_MODEL` | optional | Gemini model id (default `gemini-3.5-flash-lite`) |
 | `RAZORPAY_KEY_ID` | for online payments | Razorpay key id (test mode) |
 | `RAZORPAY_KEY_SECRET` | for online payments | Server-only key secret (order creation, signature verification) |
 | `RAZORPAY_WEBHOOK_SECRET` | for webhooks | Webhook signing secret |
@@ -221,7 +223,7 @@ Useful scripts: `npm test`, `npm run typecheck`, `npm run lint`, `npm run quote:
 3. Run migrations + seed against the Supabase database from your machine (`npx prisma migrate deploy && SEED_RESET=1 npm run db:seed`).
 4. In the Razorpay dashboard (test mode) add a webhook to `https://<your-domain>/api/webhooks/razorpay` for `payment.captured` and `payment.failed` with the same secret as `RAZORPAY_WEBHOOK_SECRET`.
 
-**Deployment link:** _add after deploy_
+**Deployment link:** https://lumora-ops-platform-ae4b.vercel.app — Vercel (functions in `icn1`, Seoul) + Supabase (ap-northeast-2)
 
 ## Demo credentials
 
