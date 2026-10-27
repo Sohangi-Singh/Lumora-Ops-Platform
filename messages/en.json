@@ -99,7 +99,21 @@
       "RPR": "Raipur",
       "DEL": "Delhi NCR"
     },
-    "staffNote": "This sign-up is for homeowners. Lumora office staff and field workers receive their accounts from the admin."
+    "staffNote": "This sign-up is for homeowners. Lumora office staff and field workers receive their accounts from the admin.",
+    "sideEyebrow": "Rooftop solar · PM Surya Ghar",
+    "sideTitle": "From your electricity bill to a working solar plant.",
+    "sideBody": "Share documents, approve your quote, pay and follow every step of your installation, all in one place.",
+    "sideFooter": "Homes in Raipur & Delhi NCR",
+    "steps": {
+      "billTitle": "Share your bill & documents",
+      "billBody": "Upload from your phone. We read the bill for you.",
+      "surveyTitle": "Site survey & quote",
+      "surveyBody": "Our team visits, sizes your system and sends a quote.",
+      "payTitle": "Pay securely",
+      "payBody": "UPI, cards or net banking through Razorpay.",
+      "installTitle": "Installation & subsidy",
+      "installBody": "Track installation, net metering and subsidy live."
+    }
   },
   "stages": {
     "REGISTERED": "Registered",
