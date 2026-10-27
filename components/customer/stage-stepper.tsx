@@ -14,13 +14,16 @@ export function StageStepper({ stages, currentSlot }: { stages: StepperStage[]; 
             {i > 0 ? (
               <span
                 aria-hidden
-                className={cn("absolute top-4 right-1/2 h-0.5 w-full -translate-y-1/2", s.state === "todo" ? "bg-border" : "bg-navy")}
+                className={cn(
+                  "absolute top-5 right-1/2 h-1 w-full -translate-y-1/2 rounded-full",
+                  s.state === "todo" ? "bg-[repeating-linear-gradient(90deg,var(--border)_0_6px,transparent_6px_10px)]" : "bg-gradient-to-r from-navy to-gold",
+                )}
               />
             ) : null}
             <Dot state={s.state} index={i} />
             <span
               className={cn(
-                "mt-2 px-1 text-[11px] leading-tight font-medium lg:text-xs",
+                "mt-2.5 px-1 text-[11px] leading-tight font-medium lg:text-xs",
                 s.state === "todo" ? "text-muted-foreground" : "text-navy",
                 s.state === "current" && "font-semibold",
               )}
@@ -38,11 +41,14 @@ export function StageStepper({ stages, currentSlot }: { stages: StepperStage[]; 
             {i < stages.length - 1 ? (
               <span
                 aria-hidden
-                className={cn("absolute top-8 bottom-0 left-4 w-0.5 -translate-x-1/2", stages[i + 1].state === "todo" ? "bg-border" : "bg-navy")}
+                className={cn(
+                  "absolute top-10 bottom-0 left-5 w-1 -translate-x-1/2 rounded-full",
+                  stages[i + 1].state === "todo" ? "bg-[repeating-linear-gradient(180deg,var(--border)_0_6px,transparent_6px_10px)]" : "bg-gradient-to-b from-navy to-gold",
+                )}
               />
             ) : null}
             <Dot state={s.state} index={i} />
-            <div className="min-w-0 flex-1 pt-1.5">
+            <div className="min-w-0 flex-1 pt-2.5">
               <div className={cn("text-sm font-medium", s.state === "todo" ? "text-muted-foreground" : "text-navy", s.state === "current" && "font-semibold")}>
                 {s.label}
               </div>
@@ -60,10 +66,10 @@ function Dot({ state, index }: { state: StepperStage["state"]; index: number }) 
   return (
     <span
       className={cn(
-        "relative z-10 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold tabular",
-        state === "done" && "bg-navy text-white",
-        state === "current" && "animate-gold-pulse bg-gold text-navy ring-4 ring-gold/25",
-        state === "todo" && "border-2 border-border bg-white text-muted-foreground",
+        "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold tabular transition-transform duration-200 hover:scale-110",
+        state === "done" && "bg-gradient-to-br from-navy to-navy-soft text-gold shadow-[0_6px_14px_-6px_rgb(27_38_59/0.6)]",
+        state === "current" && "animate-gold-pulse bg-sun text-navy ring-4 ring-gold/25 shadow-[var(--shadow-glow)]",
+        state === "todo" && "border-2 border-dashed border-border bg-white text-muted-foreground",
       )}
     >
       {state === "done" ? <Check className="size-4" aria-hidden /> : index + 1}

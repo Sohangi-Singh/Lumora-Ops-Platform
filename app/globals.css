@@ -21,7 +21,9 @@
   --color-warning-soft: var(--warning-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
-  --shadow-soft: 0 1px 2px rgb(27 38 59 / 0.04), 0 4px 16px rgb(27 38 59 / 0.06);
+  --shadow-soft: 0 1px 2px rgb(27 38 59 / 0.04), 0 8px 24px -6px rgb(27 38 59 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(27 38 59 / 0.05), 0 18px 40px -12px rgb(27 38 59 / 0.18);
+  --shadow-glow: 0 10px 30px -8px rgb(198 167 94 / 0.55);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -103,7 +105,7 @@
   --chart-3: #5c7a99;
   --chart-4: #9fb3c8;
   --chart-5: #d9c48f;
-  --radius: 0.875rem;
+  --radius: 1rem;
   --sidebar: var(--navy);
   --sidebar-foreground: #e9e6d4;
   --sidebar-primary: var(--gold);
@@ -120,6 +122,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Soft morning-sun glow behind every screen: warm top-right, cool bottom-left. */
+    background-image:
+      radial-gradient(60rem 36rem at 100% -10%, rgb(198 167 94 / 0.16), transparent 60%),
+      radial-gradient(48rem 30rem at -10% 110%, rgb(92 122 153 / 0.10), transparent 60%);
+    background-attachment: fixed;
   }
   html {
     @apply font-sans;
@@ -138,6 +145,61 @@
   }
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
+  }
+  /* Interactive surface: lifts and glows a little on hover. */
+  .lift {
+    transition:
+      transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 220ms ease;
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+  }
+  .lift:active {
+    transform: translateY(-1px) scale(0.995);
+  }
+  /* Deep navy hero surface with a warm sunrise in the corner. */
+  .hero-navy {
+    background:
+      radial-gradient(28rem 18rem at 100% 0%, rgb(255 168 38 / 0.28), transparent 65%),
+      radial-gradient(22rem 16rem at 0% 100%, rgb(198 167 94 / 0.16), transparent 70%),
+      linear-gradient(135deg, #1b263b 0%, #22324d 55%, #2a3a55 100%);
+    color: #fff;
+  }
+  .text-sun {
+    background: linear-gradient(90deg, #f7b733, #f08a24);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-sun {
+    background: linear-gradient(135deg, #fcc33a 0%, #f39a2b 60%, #ec7f22 100%);
+  }
+  .icon-bubble {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 25%, #fff 0%, var(--gold-soft) 70%);
+    box-shadow: inset 0 0 0 1px rgb(198 167 94 / 0.35);
+    color: var(--gold-ink);
+  }
+  /* Children fade up one after another when a page opens. */
+  .stagger > * {
+    animation: fade-up 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .stagger > *:nth-child(2) { animation-delay: 60ms; }
+  .stagger > *:nth-child(3) { animation-delay: 120ms; }
+  .stagger > *:nth-child(4) { animation-delay: 180ms; }
+  .stagger > *:nth-child(5) { animation-delay: 240ms; }
+  .stagger > *:nth-child(6) { animation-delay: 300ms; }
+  .stagger > *:nth-child(n + 7) { animation-delay: 340ms; }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: spin 60s linear infinite;
   }
   .logo-watermark {
     background-image: url("/brand/mark.png");
@@ -159,8 +221,47 @@
 .animate-gold-pulse {
   animation: gold-pulse 2.2s ease-in-out infinite;
 }
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes draw-in {
+  from {
+    stroke-dashoffset: 400;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.animate-draw {
+  stroke-dasharray: 400;
+  animation: draw-in 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.15s both;
+}
 @media (prefers-reduced-motion: reduce) {
-  .animate-gold-pulse {
+  .animate-gold-pulse,
+  .animate-float,
+  .animate-spin-slow,
+  .animate-draw,
+  .stagger > * {
     animation: none;
+  }
+  .lift,
+  .lift:hover {
+    transform: none;
   }
 }

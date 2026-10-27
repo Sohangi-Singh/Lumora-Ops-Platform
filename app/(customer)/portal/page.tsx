@@ -1,4 +1,5 @@
 import { ArrowRight, CircleAlert, Clock, Sparkles } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 import { EventList } from "@/components/customer/event-list";
@@ -45,9 +46,9 @@ export default async function TrackerPage() {
     : project.customer.city;
 
   const statusCard = complete ? (
-    <Card className="border-l-gold border-l-4 p-5 sm:p-6">
+    <Card className="relative p-5 sm:p-6">
       <div className="flex items-start gap-3">
-        <Sparkles className="text-gold-ink mt-0.5 size-5" aria-hidden />
+        <span className="icon-bubble size-10 shrink-0"><Sparkles className="size-5" aria-hidden /></span>
         <div>
           <h2 className="text-lg font-semibold">{t("tracker.completeTitle")}</h2>
           <p className="text-muted-foreground mt-1 text-sm">
@@ -59,14 +60,15 @@ export default async function TrackerPage() {
       </div>
     </Card>
   ) : (
-    <Card className={`border-l-4 p-5 sm:p-6 ${mine.length ? "border-l-gold" : "border-l-navy"}`}>
+    <Card className="relative p-5 sm:p-6">
+      <span aria-hidden className={`absolute inset-y-5 left-0 w-1.5 rounded-r-full ${mine.length ? "bg-sun" : "bg-gradient-to-b from-navy to-gold"}`} />
       <div className="text-gold-ink text-xs font-medium tracking-wide uppercase">
         {t("tracker.stepOf", { current: current + 1, total: STAGES.length })} · {t(`stages.${project.stage}`)}
       </div>
       {mine.length ? (
         <>
           <h2 className="mt-2 flex items-center gap-2 text-lg font-semibold">
-            <CircleAlert className="text-gold-ink size-5" aria-hidden />
+            <span className="icon-bubble size-9"><CircleAlert className="size-5" aria-hidden /></span>
             {t("tracker.actionNeeded")}
           </h2>
           <ul className="mt-3 space-y-2.5">
@@ -75,7 +77,7 @@ export default async function TrackerPage() {
               return (
                 <li
                   key={i}
-                  className="bg-cream/60 flex flex-col gap-2 rounded-xl p-3 sm:flex-row sm:items-center sm:justify-between"
+                  className="bg-cream/60 lift flex flex-col gap-2 rounded-2xl p-3.5 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <span
                     className={`text-sm ${b.severity === "critical" ? "text-danger font-medium" : "text-foreground"}`}
@@ -85,7 +87,7 @@ export default async function TrackerPage() {
                   {href ? (
                     <Link
                       href={href}
-                      className="bg-navy hover:bg-navy-soft inline-flex h-10 shrink-0 items-center justify-center gap-1.5 rounded-xl px-4 text-sm font-medium text-white"
+                      className="group/cta inline-flex min-h-10 shrink-0 py-2 text-center leading-tight items-center justify-center gap-1.5 rounded-full bg-gradient-to-br from-navy to-navy-soft px-5 text-sm font-medium text-white shadow-[0_6px_16px_-6px_rgb(27_38_59/0.55)] transition-transform hover:-translate-y-px"
                     >
                       {href.includes("documents")
                         ? b.code === "DOC_REJECTED"
@@ -94,7 +96,7 @@ export default async function TrackerPage() {
                         : href.includes("quote")
                           ? t("actions.viewQuote")
                           : t("actions.payNow")}
-                      <ArrowRight className="size-4" aria-hidden />
+                      <ArrowRight className="size-4 transition-transform group-hover/cta:translate-x-0.5" aria-hidden />
                     </Link>
                   ) : null}
                 </li>
@@ -105,7 +107,7 @@ export default async function TrackerPage() {
       ) : (
         <>
           <h2 className="mt-2 flex items-center gap-2 text-lg font-semibold">
-            <Clock className="text-navy size-5" aria-hidden />
+            <span className="icon-bubble size-9"><Clock className="size-5" aria-hidden /></span>
             {t("tracker.working")}
           </h2>
           <p className="text-foreground mt-1.5 text-sm">{t(`tracker.workingOn.${project.stage}`)}</p>
@@ -123,22 +125,45 @@ export default async function TrackerPage() {
     </Card>
   );
 
+  const pct = complete ? 100 : Math.round((current / (STAGES.length - 1)) * 100);
+
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <p className="text-muted-foreground text-sm">
-            {t("tracker.greeting", { name: user.name.split(" ")[0] })}
-          </p>
-          <h1 className="text-2xl font-semibold sm:text-[28px]">{t("tracker.title")}</h1>
-          <p className="text-muted-foreground mt-1 text-sm">
+    <div className="stagger space-y-6">
+      <section className="hero-navy relative overflow-hidden rounded-[2rem] p-6 shadow-lift sm:p-8">
+        <svg aria-hidden viewBox="0 0 400 60" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-14 w-full text-white/[0.05]">
+          <path d="M0 30 C 80 0, 160 60, 260 25 S 360 10, 400 28 L400 60 L0 60 Z" fill="currentColor" />
+        </svg>
+        <Image
+          src="/brand/mark.png"
+          alt=""
+          width={640}
+          height={479}
+          className="animate-float pointer-events-none absolute -top-2 -right-6 w-40 opacity-60 sm:opacity-95 drop-shadow-[0_12px_30px_rgb(247_167_51/0.35)] sm:right-4 sm:w-52"
+        />
+        <div className="relative max-w-[70%] sm:max-w-[60%]">
+          <p className="text-sm text-white/70">{t("tracker.greeting", { name: user.name.split(" ")[0] })}</p>
+          <h1 className="mt-1 text-2xl font-semibold text-white sm:text-[32px]">{t("tracker.title")}</h1>
+          <p className="mt-1.5 text-sm text-white/75">
             {project.systemKw
               ? t("tracker.projectFor", { kw: project.systemKw, city: cityName })
               : t("tracker.sizeTbd", { city: cityName })}
           </p>
         </div>
-        <LiveIndicator topics={[projectTopic(project.id)]} />
-      </div>
+        <div className="relative mt-6 flex flex-wrap items-center gap-4">
+          <div className="min-w-48 flex-1">
+            <div className="mb-1.5 flex items-baseline justify-between text-xs text-white/70">
+              <span>{t(`stages.${project.stage}`)}</span>
+              <span className="text-sun text-lg font-bold tabular">{pct}%</span>
+            </div>
+            <div className="h-2.5 overflow-hidden rounded-full bg-white/10">
+              <div className="bg-sun h-full rounded-full transition-[width] duration-700" style={{ width: `${Math.max(pct, 4)}%` }} />
+            </div>
+          </div>
+          <div className="rounded-full bg-white/90 px-3 py-1">
+            <LiveIndicator topics={[projectTopic(project.id)]} />
+          </div>
+        </div>
+      </section>
 
       <Card className="p-5 sm:p-6">
         <StageStepper stages={stages} currentSlot={<div className="md:hidden">{statusCard}</div>} />

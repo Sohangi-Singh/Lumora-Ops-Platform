@@ -12,9 +12,9 @@ export async function JobCard({ job }: { job: Job }) {
   const Icon = job.type === "SURVEY" ? ClipboardCheck : Wrench;
   const maps = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(job.address)}`;
   return (
-    <Card className="gap-3 p-4">
+    <Card className="lift gap-3 p-4">
       <Link href={`/worker/jobs/${job.projectId}`} className="flex items-start gap-3">
-        <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-cream text-navy">
+        <span className="icon-bubble size-12 shrink-0">
           <Icon className="size-5" aria-hidden />
         </span>
         <span className="min-w-0 flex-1">
@@ -32,14 +32,14 @@ export async function JobCard({ job }: { job: Job }) {
       </Link>
       <div className="grid grid-cols-2 gap-2">
         {job.phone ? (
-          <a href={`tel:+91${job.phone}`} className="flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-white text-sm font-medium text-navy">
+          <a href={`tel:+91${job.phone}`} className="flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-white text-sm font-medium text-navy transition-all hover:border-gold/60 hover:bg-gold-soft/40 active:scale-[0.97]">
             <Phone className="size-4" aria-hidden />
             {t("call")}
           </a>
         ) : (
           <span />
         )}
-        <a href={maps} target="_blank" rel="noopener" className="flex h-12 items-center justify-center gap-2 rounded-xl border border-border bg-white text-sm font-medium text-navy">
+        <a href={maps} target="_blank" rel="noopener" className="flex h-12 items-center justify-center gap-2 rounded-full border border-border bg-white text-sm font-medium text-navy transition-all hover:border-gold/60 hover:bg-gold-soft/40 active:scale-[0.97]">
           <Navigation className="size-4" aria-hidden />
           {t("directions")}
         </a>

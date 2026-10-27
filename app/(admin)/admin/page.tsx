@@ -43,27 +43,28 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="stagger space-y-6">
       <PageHeader title={t("admin.dash.title")} description={t("admin.dash.subtitle")} actions={<LiveIndicator topics={[ADMIN_TOPIC]} />} />
 
       <form action="/admin/projects" role="search" className="relative">
-        <Search className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
-        <Input name="q" placeholder={t("admin.dash.searchPlaceholder")} aria-label={t("admin.dash.searchPlaceholder")} className="h-12 pl-10" />
+        <Search className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-gold-ink" aria-hidden />
+        <Input name="q" placeholder={t("admin.dash.searchPlaceholder")} aria-label={t("admin.dash.searchPlaceholder")} className="h-13 rounded-full pl-11 shadow-soft" />
       </form>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {kpis.map((k) => {
           const body = (
-            <Card className={cn("h-full gap-1 p-4", k.attention && "ring-gold/70")}>
-              <div className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>{k.label}</span>
-                <k.icon className={cn("size-4", k.attention ? "text-gold-ink" : "text-muted-foreground/70")} aria-hidden />
-              </div>
+            <Card className={cn("lift relative h-full gap-2 p-4", k.attention && "ring-2 ring-gold/70")}>
+              <span aria-hidden className="pointer-events-none absolute -top-8 -right-8 size-24 rounded-full bg-[radial-gradient(circle,rgb(247_183_51/0.18),transparent_70%)]" />
+              <span className={cn("size-9", k.attention ? "bg-sun inline-flex items-center justify-center rounded-full text-navy shadow-[var(--shadow-glow)]" : "icon-bubble")}>
+                <k.icon className="size-[18px]" aria-hidden />
+              </span>
               <div className="text-xl font-semibold text-navy tabular sm:text-2xl">{k.value}</div>
+              <div className="text-xs text-muted-foreground">{k.label}</div>
             </Card>
           );
           return k.href ? (
-            <Link key={k.label} href={k.href} className="rounded-2xl focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none">
+            <Link key={k.label} href={k.href} className="rounded-[1.6rem] focus-visible:ring-2 focus-visible:ring-gold focus-visible:outline-none">
               {body}
             </Link>
           ) : (
@@ -85,7 +86,7 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
               {STAGES.map((stage) => {
                 const items = d.projects.filter((p) => p.stage === stage);
                 return (
-                  <section key={stage} className="w-56 shrink-0 rounded-xl bg-cream/70 p-2" aria-label={t(`stages.${stage}`)}>
+                  <section key={stage} className="w-56 shrink-0 rounded-[1.4rem] bg-gradient-to-b from-cream to-cream/40 p-2 ring-1 ring-border/60" aria-label={t(`stages.${stage}`)}>
                     <header className="flex items-center justify-between px-1.5 pt-1 pb-2 text-xs font-semibold text-navy">
                       <span>{t(`stages.${stage}`)}</span>
                       <span className="rounded-full bg-white px-2 py-0.5 tabular">{items.length}</span>
@@ -96,7 +97,7 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
                           <Link
                             href={`/admin/projects/${p.id}`}
                             className={cn(
-                              "block rounded-lg border bg-white p-2.5 text-sm shadow-xs transition-colors hover:border-navy/40",
+                              "lift block rounded-2xl border bg-white p-3 text-sm shadow-xs hover:border-gold/60",
                               p.critical ? "border-danger/40" : "border-border",
                             )}
                           >
@@ -144,8 +145,8 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
                 scroll={false}
                 aria-current={owner === o ? "page" : undefined}
                 className={cn(
-                  "rounded-full px-3 py-1.5 text-xs font-medium",
-                  owner === o ? "bg-navy text-white" : "bg-muted text-muted-foreground hover:text-navy",
+                  "rounded-full px-3.5 py-1.5 text-xs font-medium transition-all",
+                  owner === o ? "bg-gradient-to-br from-navy to-navy-soft text-white shadow-[0_6px_14px_-6px_rgb(27_38_59/0.55)]" : "bg-muted text-muted-foreground hover:bg-gold-soft hover:text-navy",
                 )}
               >
                 {t(`admin.dash.filter.${o}`)}
@@ -158,7 +159,7 @@ export default async function AdminOverview({ searchParams }: { searchParams: Pr
             <ul className="max-h-[420px] space-y-1.5 overflow-y-auto pr-1">
               {blockers.map((b, i) => (
                 <li key={`${b.projectId}-${b.code}-${i}`}>
-                  <Link href={`/admin/projects/${b.projectId}`} className="flex items-start justify-between gap-3 rounded-xl px-3 py-2 hover:bg-cream/70">
+                  <Link href={`/admin/projects/${b.projectId}`} className="flex items-start justify-between gap-3 rounded-2xl px-3 py-2 transition-all hover:translate-x-1 hover:bg-cream/70">
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-medium text-navy">{b.projectName}</span>
                       <span className={cn("block text-xs", b.severity === "critical" ? "text-danger" : "text-muted-foreground")}>{describeBlocker(b, tr)}</span>

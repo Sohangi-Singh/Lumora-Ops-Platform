@@ -96,11 +96,11 @@ export function DocumentCard({
   }
 
   return (
-    <Card className={cn("gap-0 p-5", status === "REJECTED" && "ring-danger/40")}>
+    <Card className={cn("lift gap-0 p-5", status === "REJECTED" && "ring-2 ring-danger/40")}>
       <div className="flex items-start gap-3">
         <div
           className={cn(
-            "flex size-10 shrink-0 items-center justify-center rounded-xl",
+            "flex size-11 shrink-0 items-center justify-center rounded-full",
             status === "APPROVED" ? "bg-success-soft text-success" : status === "REJECTED" ? "bg-danger-soft text-danger" : "bg-cream text-navy",
           )}
         >
@@ -119,13 +119,13 @@ export function DocumentCard({
       </div>
 
       {status === "REJECTED" && latest?.rejectionReason ? (
-        <div role="alert" className="mt-3 rounded-xl bg-danger-soft px-3 py-2 text-sm text-danger">
+        <div role="alert" className="mt-3 rounded-2xl bg-danger-soft px-3 py-2 text-sm text-danger">
           {t("rejectedReason", { reason: latest.rejectionReason })}
         </div>
       ) : null}
 
       {latest ? (
-        <div className="mt-3 flex items-center justify-between gap-2 rounded-xl bg-cream/60 px-3 py-2 text-xs text-muted-foreground">
+        <div className="mt-3 flex items-center justify-between gap-2 rounded-full bg-cream/60 px-4 py-2 text-xs text-muted-foreground">
           <span className="truncate">
             {t("lastUploaded", { file: latest.fileName, date: formatDate(latest.createdAt, locale) })}
             {latest.version > 1 ? ` · ${t("version", { n: latest.version })}` : ""}

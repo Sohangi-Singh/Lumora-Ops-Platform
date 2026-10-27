@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 export function StatusPage({ code, title, body, action }: { code: string; title: string; body: string; action?: ReactNode }) {
   return (
     <div className="flex min-h-[70dvh] flex-col items-center justify-center px-4 text-center">
-      <Image src="/brand/mark.png" alt="" width={120} height={105} className="mb-6 h-16 w-auto opacity-30 grayscale" />
+      <Image src="/brand/mark.png" alt="" width={640} height={479} className="animate-float mb-6 h-20 w-auto drop-shadow-[0_12px_28px_rgb(247_167_51/0.35)]" />
       <div className="text-sm font-semibold tracking-[0.2em] text-gold-ink">{code}</div>
       <h1 className="mt-2 text-2xl font-semibold">{title}</h1>
       <p className="mt-2 max-w-md text-sm text-muted-foreground">{body}</p>
