@@ -211,9 +211,11 @@ Under the hood, a **pure, tested state machine** moves each project forward only
 
 ### Customer portal (Hindi)
 
-| Documents: rejection reason appears live | Quote: savings, accept, PDF |
+| Home: live project tracker across 10 stages | Documents: rejection reason appears live |
 |---|---|
-| ![Documents with rejected Aadhaar](docs/screenshots/documents-rejected.jpg) | ![Customer quotation in Hindi](docs/screenshots/customer-quote-hindi.jpg) |
+| ![Customer project tracker in Hindi](docs/screenshots/customer-tracker-hindi.jpg) | ![Documents with rejected Aadhaar](docs/screenshots/documents-rejected.jpg) |
+| **Quote: savings, accept, PDF** | |
+| ![Customer quotation in Hindi](docs/screenshots/customer-quote-hindi.jpg) | |
 
 ### Field worker's phone
 
